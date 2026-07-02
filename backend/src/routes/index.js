@@ -1,0 +1,44 @@
+import { Router } from "express";
+import healthRoutes from "./health.routes.js";
+import authRoutes from "./auth.routes.js";
+import adminRoutes from "./admin.routes.js";
+import courseRoutes from "./course.routes.js";
+import lessonRoutes from "./lesson.routes.js";
+import enrollmentRoutes from "./enrollment.routes.js";
+import progressRoutes from "./progress.routes.js";
+import myCoursesRoutes from "./myCourses.routes.js";
+import attendanceRoutes from "./attendance.routes.js";
+import myAttendanceRoutes from "./myAttendance.routes.js";
+import certificateRoutes from "./certificate.routes.js";
+import myCertificatesRoutes from "./myCertificates.routes.js";
+import financeRoutes from "./finance.routes.js";
+import financeReportRoutes from "./financeReport.routes.js";
+import donationRoutes from "./donation.routes.js";
+import campaignRoutes from "./campaign.routes.js";
+import expenseRoutes from "./expense.routes.js";
+import budgetRoutes from "./budget.routes.js";
+import memberProfileRoutes from "./memberProfile.routes.js";
+
+const router = Router();
+
+router.use("/health", healthRoutes);
+router.use("/auth", authRoutes);
+router.use("/admin", adminRoutes);
+router.use("/courses", courseRoutes);
+router.use("/lessons", lessonRoutes);
+router.use("/enrollments", enrollmentRoutes);
+router.use("/progress", progressRoutes);
+router.use("/my-courses", myCoursesRoutes);
+router.use("/attendance", attendanceRoutes);
+router.use("/my-attendance", myAttendanceRoutes);
+router.use("/certificates", certificateRoutes);
+router.use("/my-certificates", myCertificatesRoutes);
+router.use("/member-profiles", memberProfileRoutes);
+router.use(donationRoutes);
+router.use(campaignRoutes);
+router.use(expenseRoutes);
+router.use(budgetRoutes);
+router.use("/finance", financeRoutes);
+router.use("/finance", financeReportRoutes);
+
+export default router;
