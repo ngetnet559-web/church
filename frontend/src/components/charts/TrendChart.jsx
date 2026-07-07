@@ -1,6 +1,8 @@
-export default function TrendChart({ data = [], valueKey = 'attendancePercent' }) {
+import { memo } from 'react';
+
+const TrendChart = memo(function TrendChart({ data = [], valueKey = 'attendancePercent' }) {
   if (data.length === 0) {
-    return <p className="text-sm text-slate-500">No trend data available.</p>;
+    return <p className="text-sm text-slate-500 dark:text-slate-400">No trend data available.</p>;
   }
 
   const max = 100;
@@ -34,11 +36,13 @@ export default function TrendChart({ data = [], valueKey = 'attendancePercent' }
           );
         })}
       </svg>
-      <div className="flex justify-between text-[10px] text-slate-500">
+      <div className="flex justify-between text-[10px] text-slate-500 dark:text-slate-400">
         {data.map((item) => (
           <span key={item.date || item.label}>{item.label}</span>
         ))}
       </div>
     </div>
   );
-}
+});
+
+export default TrendChart;

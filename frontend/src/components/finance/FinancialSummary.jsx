@@ -15,9 +15,9 @@ function FinancialSummary({ stats }) {
   return (
     <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
       {cards.map((card) => (
-        <div key={card.label} className="rounded-xl border bg-white p-4 shadow-sm">
-          <p className="text-sm text-gray-500">{card.label}</p>
-          <p className="mt-2 text-2xl font-semibold text-gray-900">
+        <div key={card.label} className="rounded-xl border bg-white p-4 shadow-sm transition-colors dark:border-slate-700 dark:bg-slate-900">
+          <p className="text-sm text-gray-500 dark:text-slate-400">{card.label}</p>
+          <p className="mt-2 text-2xl font-semibold text-gray-900 dark:text-white">
             {card.prefix || ""}
             {(card.value ?? 0).toLocaleString()}
             {card.suffix || ""}

@@ -119,14 +119,14 @@ export default function TakeAttendancePage() {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 transition-colors">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <Link to="/dashboard/attendance/sessions" className="text-sm font-medium text-indigo-600 hover:text-indigo-800">
+            <Link to="/dashboard/attendance/sessions" className="text-sm font-medium text-indigo-600 hover:text-indigo-800 dark:text-indigo-400">
             ← Back to sessions
           </Link>
-          <h1 className="mt-2 text-2xl font-bold text-slate-900">Take Attendance</h1>
-          <p className="mt-1 text-slate-600">Record attendance for {session.title}.</p>
+          <h1 className="mt-2 text-2xl font-bold text-slate-900 dark:text-white">Take Attendance</h1>
+          <p className="mt-1 text-slate-600 dark:text-slate-300">Record attendance for {session.title}.</p>
         </div>
         <button
           type="button"
@@ -139,39 +139,39 @@ export default function TakeAttendancePage() {
       </div>
 
       {error && (
-        <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>
+        <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700 dark:bg-red-950 dark:text-red-400">{error}</div>
       )}
 
-      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-        <div className="border-b border-slate-200 p-6">
+      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900">
+        <div className="border-b border-slate-200 p-6 dark:border-slate-700">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700">
+            <span className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
               {session.status}
             </span>
-            <span className="text-sm text-slate-500">{session.programType}</span>
+            <span className="text-sm text-slate-500 dark:text-slate-400">{session.programType}</span>
           </div>
-          <p className="mt-2 text-lg font-semibold text-slate-900">{session.title}</p>
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-2 text-lg font-semibold text-slate-900 dark:text-white">{session.title}</p>
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
             {new Date(session.date).toLocaleDateString()} · {session.startTime} - {session.endTime}
             {session.location && ` · ${session.location}`}
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
             {ATTENDANCE_STATUS.map((s) => (
-              <span key={s} className="text-sm text-slate-600">
+              <span key={s} className="text-sm text-slate-600 dark:text-slate-300">
                 {s}: <strong>{counts[s]}</strong>
               </span>
             ))}
           </div>
         </div>
 
-        <div className="border-b border-slate-200 p-4 space-y-3">
+        <div className="border-b border-slate-200 p-4 space-y-3 dark:border-slate-700">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <input
               type="search"
               placeholder="Search students..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm"
+              className="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm dark:border-slate-600"
             />
             <div className="flex flex-wrap gap-2">
               {['all', ...ATTENDANCE_STATUS].map((f) => (
@@ -180,7 +180,7 @@ export default function TakeAttendancePage() {
                   type="button"
                   onClick={() => setStatusFilter(f)}
                   className={`rounded-full px-3 py-1 text-xs font-medium ${
-                    statusFilter === f ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'
+                    statusFilter === f ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'
                   }`}
                 >
                   {f === 'all' ? 'All' : f}
@@ -192,7 +192,7 @@ export default function TakeAttendancePage() {
             <select
               value={bulkStatus}
               onChange={(e) => setBulkStatus(e.target.value)}
-              className="rounded-lg border border-slate-300 px-3 py-1.5 text-sm"
+              className="rounded-lg border border-slate-300 px-3 py-1.5 text-sm dark:border-slate-600"
             >
               {ATTENDANCE_STATUS.map((s) => (
                 <option key={s} value={s}>{s}</option>
@@ -201,21 +201,21 @@ export default function TakeAttendancePage() {
             <button
               type="button"
               onClick={handleBulkApply}
-              className="rounded-lg border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+              className="rounded-lg border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-800"
             >
               Apply to filtered
             </button>
             <button
               type="button"
               onClick={handleMarkAllPresent}
-              className="rounded-lg border border-green-200 px-3 py-1.5 text-sm font-medium text-green-700 hover:bg-green-50"
+              className="rounded-lg border border-green-200 px-3 py-1.5 text-sm font-medium text-green-700 hover:bg-green-50 dark:border-green-800 dark:text-green-400 dark:hover:bg-green-950"
             >
               Mark all Present
             </button>
             <button
               type="button"
               onClick={handleMarkAllAbsent}
-              className="rounded-lg border border-red-200 px-3 py-1.5 text-sm font-medium text-red-700 hover:bg-red-50"
+              className="rounded-lg border border-red-200 px-3 py-1.5 text-sm font-medium text-red-700 hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-950"
             >
               Mark all Absent
             </button>
@@ -224,11 +224,11 @@ export default function TakeAttendancePage() {
 
         <div className="p-6">
           {session.enrolledStudents?.length === 0 ? (
-            <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center text-slate-500">
+            <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center text-slate-500 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-400">
               No students found for this session.
             </div>
           ) : filteredStudents.length === 0 ? (
-            <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center text-slate-500">
+            <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center text-slate-500 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-400">
               No students match your search or filter.
             </div>
           ) : (
@@ -236,11 +236,11 @@ export default function TakeAttendancePage() {
               {filteredStudents.map((student) => (
                 <div
                   key={student.id}
-                  className="flex flex-col gap-3 rounded-xl border border-slate-200 p-4 sm:flex-row sm:items-center sm:justify-between"
+                  className="flex flex-col gap-3 rounded-xl border border-slate-200 p-4 sm:flex-row sm:items-center sm:justify-between dark:border-slate-700"
                 >
                   <div>
-                    <p className="font-medium text-slate-900">{student.name}</p>
-                    <p className="text-sm text-slate-500">{student.email}</p>
+                    <p className="font-medium text-slate-900 dark:text-white">{student.name}</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">{student.email}</p>
                   </div>
                   <div className="flex flex-col gap-2 sm:items-end">
                     <div className="flex flex-wrap items-center gap-2">
@@ -252,7 +252,7 @@ export default function TakeAttendancePage() {
                           className={`rounded-full px-3 py-1 text-sm font-medium ${
                             attendanceMap[student.id] === value
                               ? 'bg-indigo-600 text-white'
-                              : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                              : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
                           }`}
                         >
                           {value}
@@ -265,7 +265,7 @@ export default function TakeAttendancePage() {
                       onChange={(e) =>
                         setNotesMap((prev) => ({ ...prev, [student.id]: e.target.value }))
                       }
-                      className="w-full rounded-lg border border-slate-200 px-2 py-1 text-xs sm:w-48"
+                      className="w-full rounded-lg border border-slate-200 px-2 py-1 text-xs sm:w-48 dark:border-slate-700"
                     />
                   </div>
                 </div>

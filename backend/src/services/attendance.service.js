@@ -88,6 +88,8 @@ export const createSession = async (user, data) => {
 
   await session.populate("createdBy", "name email");
   await session.populate("courseId", "title");
+  import("../services/audit.service.js").then(m => m.logAudit({ user, action: "Create", module: "Attendance", targetCollection: "AttendanceSession", targetId: session._id, description: `Attendance session "${session.title}" created` })).catch(() => {});
+  import("../services/activity.service.js").then(m => m.logActivity({ user, activityType: "attendance_session_created", module: "Attendance", description: `${user.name} created attendance session "${session.title}"`, targetId: session._id, targetModel: "AttendanceSession" })).catch(() => {});
   return formatSession(session);
 };
 
@@ -233,6 +235,8 @@ export const updateSession = async (user, sessionId, data) => {
   await session.save();
   await session.populate("createdBy", "name email");
   await session.populate("courseId", "title");
+  import("../services/audit.service.js").then(m => m.logAudit({ user, action: "Update", module: "Attendance", targetCollection: "AttendanceSession", targetId: session._id, description: `Attendance session "${session.title}" updated` })).catch(() => {});
+  import("../services/activity.service.js").then(m => m.logActivity({ user, activityType: "attendance_session_updated", module: "Attendance", description: `${user.name} updated attendance session "${session.title}"`, targetId: session._id, targetModel: "AttendanceSession" })).catch(() => {});
   return formatSession(session);
 };
 
@@ -253,6 +257,8 @@ export const deleteSession = async (user, sessionId) => {
   await Attendance.deleteMany({ sessionId: session._id });
   await session.deleteOne();
 
+  import("../services/audit.service.js").then(m => m.logAudit({ user, action: "Delete", module: "Attendance", targetCollection: "AttendanceSession", targetId: sessionId, description: `Attendance session "${session.title}" deleted` })).catch(() => {});
+  import("../services/activity.service.js").then(m => m.logActivity({ user, activityType: "attendance_session_deleted", module: "Attendance", description: `${user.name} deleted attendance session "${session.title}"`, targetId: sessionId, targetModel: "AttendanceSession" })).catch(() => {});
   return { message: "Attendance session deleted successfully" };
 };
 
@@ -317,6 +323,10 @@ export const recordAttendance = async (user, data) => {
 
   await attendance.populate("studentId", "name email");
   await attendance.populate("sessionId", "title date");
+
+  import("../services/autoNotification.service.js").then(m => m.notifyAttendanceMarked(attendance)).catch(() => {});
+  import("../services/audit.service.js").then(m => m.logAudit({ user, action: "Create", module: "Attendance", targetCollection: "Attendance", targetId: attendance._id, description: `Attendance marked as ${attendance.status}` })).catch(() => {});
+  import("../services/activity.service.js").then(m => m.logActivity({ user, activityType: "attendance_marked", module: "Attendance", description: `Attendance marked for student`, targetId: attendance._id, targetModel: "Attendance" })).catch(() => {});
 
   return {
     id: attendance._id,

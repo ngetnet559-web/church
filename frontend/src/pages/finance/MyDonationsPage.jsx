@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import DonationTable from "../../components/finance/DonationTable.jsx";
 import CampaignCard from "../../components/finance/CampaignCard.jsx";
 import { financeApi } from "../../services/finance.service.js";
@@ -9,24 +9,27 @@ function MyDonationsPage() {
   const [statistics, setStatistics] = useState(null);
   const [campaigns, setCampaigns] = useState([]);
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
+
+  const load = useCallback(async () => {
+    setLoading(true);
+    try {
+      const [donationsRes, statsRes, campaignsRes] = await Promise.all([
+        financeApi.getMyDonations(),
+        financeApi.getMyStatistics(),
+        financeApi.listCampaigns("active=true"),
+      ]);
+      setDonations(donationsRes.data?.donations || []);
+      setStatistics(statsRes.data?.statistics);
+      setCampaigns(campaignsRes.data?.campaigns || []);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    const load = async () => {
-      try {
-        const [donationsRes, statsRes, campaignsRes] = await Promise.all([
-          financeApi.getMyDonations(),
-          financeApi.getMyStatistics(),
-          financeApi.listCampaigns("active=true"),
-        ]);
-        setDonations(donationsRes.data?.donations || []);
-        setStatistics(statsRes.data?.statistics);
-        setCampaigns(campaignsRes.data?.campaigns || []);
-      } finally {
-        setLoading(false);
-      }
-    };
     load();
-  }, []);
+  }, [load, location.key]);
 
   if (loading) return <div>Loading your giving history...</div>;
 
@@ -36,7 +39,7 @@ function MyDonationsPage() {
         <h1 className="text-2xl font-semibold">My Donations</h1>
         <Link
           to="/donate"
-          className="rounded-lg bg-emerald-600 px-4 py-2 text-sm text-white hover:bg-emerald-700"
+          className="rounded-lg bg-emerald-600 px-4 py-2 text-sm text-white hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600"
         >
           Make a Donation
         </Link>
@@ -50,8 +53,8 @@ function MyDonationsPage() {
             { label: "This Year", value: statistics.thisYear },
             { label: "Gifts", value: statistics.count },
           ].map((item) => (
-            <div key={item.label} className="rounded-xl border bg-white p-4 shadow-sm">
-              <p className="text-sm text-gray-500">{item.label}</p>
+            <div key={item.label} className="rounded-xl border bg-white p-4 shadow-sm transition-colors dark:border-slate-700 dark:bg-slate-900">
+              <p className="text-sm text-gray-500 dark:text-slate-400">{item.label}</p>
               <p className="mt-1 text-xl font-semibold">
                 {typeof item.value === "number" && item.label !== "Gifts"
                   ? `${item.value.toLocaleString()} ETB`

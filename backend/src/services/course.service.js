@@ -43,6 +43,9 @@ export const createCourse = async (user, data) => {
   });
 
   await course.populate(populateCourse);
+  import("../services/autoNotification.service.js").then(m => m.notifyCourseCreated(course, user)).catch(() => {});
+  import("../services/audit.service.js").then(m => m.logAudit({ user, action: "Create", module: "Course", targetCollection: "Course", targetId: course._id, description: `Course "${course.title}" created` })).catch(() => {});
+  import("../services/activity.service.js").then(m => m.logActivity({ user, activityType: "course_created", module: "Course", description: `${user.name} created course "${course.title}"`, targetId: course._id, targetModel: "Course" })).catch(() => {});
   return formatCourse(course, { lessonCount: 0 });
 };
 
@@ -195,6 +198,10 @@ export const updateCourse = async (user, courseId, data) => {
   await course.save();
   await course.populate(populateCourse);
 
+  import("../services/autoNotification.service.js").then(m => m.notifyCourseCreated(course, user)).catch(() => {});
+  import("../services/audit.service.js").then(m => m.logAudit({ user, action: "Update", module: "Course", targetCollection: "Course", targetId: course._id, description: `Course "${course.title}" updated` })).catch(() => {});
+  import("../services/activity.service.js").then(m => m.logActivity({ user, activityType: "course_updated", module: "Course", description: `${user.name} updated course "${course.title}"`, targetId: course._id, targetModel: "Course" })).catch(() => {});
+
   const lessonCount = await Lesson.countDocuments({ courseId });
   return formatCourse(course, { lessonCount });
 };
@@ -212,6 +219,9 @@ export const deleteCourse = async (user, courseId) => {
   await Lesson.deleteMany({ courseId });
   await Enrollment.deleteMany({ courseId });
   await course.deleteOne();
+
+  import("../services/audit.service.js").then(m => m.logAudit({ user, action: "Delete", module: "Course", targetCollection: "Course", targetId: courseId, description: `Course deleted` })).catch(() => {});
+  import("../services/activity.service.js").then(m => m.logActivity({ user, activityType: "course_deleted", module: "Course", description: `${user.name} deleted course`, targetId: courseId, targetModel: "Course" })).catch(() => {});
 
   return { message: 'Course deleted successfully' };
 };

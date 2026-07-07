@@ -1,50 +1,91 @@
+import { lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import MainLayout from "../components/layout/MainLayout.jsx";
 import DashboardLayout from "../components/layout/DashboardLayout.jsx";
 import ProtectedRoute from "../components/auth/ProtectedRoute.jsx";
 import RoleRoute from "../components/auth/RoleRoute.jsx";
-import Home from "../pages/Home.jsx";
-import Login from "../pages/Login.jsx";
-import Unauthorized from "../pages/Unauthorized.jsx";
-import DashboardRouter from "../pages/dashboards/DashboardRouter.jsx";
-import UsersPage from "../pages/admin/UsersPage.jsx";
-import PlaceholderPage from "../pages/PlaceholderPage.jsx";
-import CoursesListPage from "../pages/courses/CoursesListPage.jsx";
-import MyCoursesPage from "../pages/courses/MyCoursesPage.jsx";
-import CreateCoursePage from "../pages/courses/CreateCoursePage.jsx";
-import CourseDetailPage from "../pages/courses/CourseDetailPage.jsx";
-import LessonViewerPage from "../pages/courses/LessonViewerPage.jsx";
-import AttendanceDashboardPage from "../pages/attendance/AttendanceDashboardPage.jsx";
-import AttendanceSessionsPage from "../pages/attendance/AttendanceSessionsPage.jsx";
-import TakeAttendancePage from "../pages/attendance/TakeAttendancePage.jsx";
-import MyAttendancePage from "../pages/attendance/MyAttendancePage.jsx";
-import ParentAttendancePage from "../pages/attendance/ParentAttendancePage.jsx";
-import CertificatesPage from "../pages/certificates/CertificatesPage.jsx";
-import CertificateDetailPage from "../pages/certificates/CertificateDetailPage.jsx";
-import CertificateVerifyPage from "../pages/certificates/CertificateVerifyPage.jsx";
-import FinanceDashboardPage from "../pages/finance/FinanceDashboardPage.jsx";
-import CampaignsPage from "../pages/finance/CampaignsPage.jsx";
-import CampaignDetailPage from "../pages/finance/CampaignDetailPage.jsx";
-import DonationsPage from "../pages/finance/DonationsPage.jsx";
-import DonationDetailPage from "../pages/finance/DonationDetailPage.jsx";
-import MyDonationsPage from "../pages/finance/MyDonationsPage.jsx";
-import ExpensesPage from "../pages/finance/ExpensesPage.jsx";
-import ExpenseDetailPage from "../pages/finance/ExpenseDetailPage.jsx";
-import BudgetsPage from "../pages/finance/BudgetsPage.jsx";
-import ReportsPage from "../pages/finance/ReportsPage.jsx";
-import PublicDonationPage from "../pages/finance/PublicDonationPage.jsx";
-import PublicCampaignsPage from "../pages/finance/PublicCampaignsPage.jsx";
-import PublicCampaignDetailPage from "../pages/finance/PublicCampaignDetailPage.jsx";
-import DonationSuccessPage from "../pages/finance/DonationSuccessPage.jsx";
-import DonationFailurePage from "../pages/finance/DonationFailurePage.jsx";
-import ProfilePage from "../pages/profile/ProfilePage.jsx";
-import EditProfilePage from "../pages/profile/EditProfilePage.jsx";
-import ProfilesPage from "../pages/admin/ProfilesPage.jsx";
 import { ROLES } from "../constants/roles.js";
+
+const Home = lazy(() => import("../pages/Home.jsx"));
+const Login = lazy(() => import("../pages/Login.jsx"));
+const Unauthorized = lazy(() => import("../pages/Unauthorized.jsx"));
+const DashboardRouter = lazy(() => import("../pages/dashboards/DashboardRouter.jsx"));
+const UsersPage = lazy(() => import("../pages/admin/UsersPage.jsx"));
+const PlaceholderPage = lazy(() => import("../pages/PlaceholderPage.jsx"));
+const CoursesListPage = lazy(() => import("../pages/courses/CoursesListPage.jsx"));
+const MyCoursesPage = lazy(() => import("../pages/courses/MyCoursesPage.jsx"));
+const CreateCoursePage = lazy(() => import("../pages/courses/CreateCoursePage.jsx"));
+const CourseDetailPage = lazy(() => import("../pages/courses/CourseDetailPage.jsx"));
+const LessonViewerPage = lazy(() => import("../pages/courses/LessonViewerPage.jsx"));
+const AttendanceDashboardPage = lazy(() => import("../pages/attendance/AttendanceDashboardPage.jsx"));
+const AttendanceSessionsPage = lazy(() => import("../pages/attendance/AttendanceSessionsPage.jsx"));
+const TakeAttendancePage = lazy(() => import("../pages/attendance/TakeAttendancePage.jsx"));
+const MyAttendancePage = lazy(() => import("../pages/attendance/MyAttendancePage.jsx"));
+const ParentAttendancePage = lazy(() => import("../pages/attendance/ParentAttendancePage.jsx"));
+const CertificatesPage = lazy(() => import("../pages/certificates/CertificatesPage.jsx"));
+const CertificateDetailPage = lazy(() => import("../pages/certificates/CertificateDetailPage.jsx"));
+const CertificateVerifyPage = lazy(() => import("../pages/certificates/CertificateVerifyPage.jsx"));
+const CertificateDownloadRequestsPage = lazy(() => import("../pages/certificates/CertificateDownloadRequestsPage.jsx"));
+const FinanceDashboardPage = lazy(() => import("../pages/finance/FinanceDashboardPage.jsx"));
+const CampaignsPage = lazy(() => import("../pages/finance/CampaignsPage.jsx"));
+const CampaignDetailPage = lazy(() => import("../pages/finance/CampaignDetailPage.jsx"));
+const DonationsPage = lazy(() => import("../pages/finance/DonationsPage.jsx"));
+const DonationDetailPage = lazy(() => import("../pages/finance/DonationDetailPage.jsx"));
+const MyDonationsPage = lazy(() => import("../pages/finance/MyDonationsPage.jsx"));
+const ExpensesPage = lazy(() => import("../pages/finance/ExpensesPage.jsx"));
+const ExpenseDetailPage = lazy(() => import("../pages/finance/ExpenseDetailPage.jsx"));
+const BudgetsPage = lazy(() => import("../pages/finance/BudgetsPage.jsx"));
+const ReportsPage = lazy(() => import("../pages/finance/ReportsPage.jsx"));
+const PublicDonationPage = lazy(() => import("../pages/finance/PublicDonationPage.jsx"));
+const PublicCampaignsPage = lazy(() => import("../pages/finance/PublicCampaignsPage.jsx"));
+const PublicCampaignDetailPage = lazy(() => import("../pages/finance/PublicCampaignDetailPage.jsx"));
+const DonationSuccessPage = lazy(() => import("../pages/finance/DonationSuccessPage.jsx"));
+const DonationFailurePage = lazy(() => import("../pages/finance/DonationFailurePage.jsx"));
+const ProfilePage = lazy(() => import("../pages/profile/ProfilePage.jsx"));
+const EditProfilePage = lazy(() => import("../pages/profile/EditProfilePage.jsx"));
+const ProfilesPage = lazy(() => import("../pages/admin/ProfilesPage.jsx"));
+const AnalyticsDashboardPage = lazy(() => import("../pages/analytics/AnalyticsDashboardPage"));
+const NotificationsPage = lazy(() => import("../pages/notifications/NotificationsPage"));
+const AdminNotificationsPage = lazy(() => import("../pages/notifications/AdminNotificationsPage"));
+const AnnouncementPage = lazy(() => import("../pages/notifications/AnnouncementPage"));
+const NotificationSettingsPage = lazy(() => import("../pages/notifications/NotificationSettingsPage"));
+const CalendarPage = lazy(() => import("../pages/events/CalendarPage"));
+const EventsPage = lazy(() => import("../pages/events/EventsPage"));
+const EventDetailPage = lazy(() => import("../pages/events/EventDetailPage"));
+const MyEventsPage = lazy(() => import("../pages/events/MyEventsPage"));
+const AdminEventsPage = lazy(() => import("../pages/events/AdminEventsPage"));
+const RoomsPage = lazy(() => import("../pages/rooms/RoomsPage"));
+const RoomDetailPage = lazy(() => import("../pages/rooms/RoomDetailPage"));
+const AdminRoomsPage = lazy(() => import("../pages/rooms/AdminRoomsPage"));
+const AdminBookingsPage = lazy(() => import("../pages/rooms/AdminBookingsPage"));
+const ReportsDashboard = lazy(() => import("../pages/reports/ReportsDashboard"));
+const UsersReport = lazy(() => import("../pages/reports/UsersReport"));
+const CoursesReport = lazy(() => import("../pages/reports/CoursesReport"));
+const AttendanceReport = lazy(() => import("../pages/reports/AttendanceReport"));
+const FinanceReport = lazy(() => import("../pages/reports/FinanceReport"));
+const DonationReport = lazy(() => import("../pages/reports/DonationReport"));
+const AnalyticsReport = lazy(() => import("../pages/reports/AnalyticsReport"));
+const MembersReport = lazy(() => import("../pages/reports/MembersReport"));
+const EnrollmentsReport = lazy(() => import("../pages/reports/EnrollmentsReport"));
+const CertificatesReport = lazy(() => import("../pages/reports/CertificatesReport"));
+const ExpensesReport = lazy(() => import("../pages/reports/ExpensesReport"));
+const CampaignsReport = lazy(() => import("../pages/reports/CampaignsReport"));
+const AuditLogsPage = lazy(() => import("../pages/system/AuditLogsPage"));
+const ActivityPage = lazy(() => import("../pages/system/ActivityPage"));
+const LoginHistoryPage = lazy(() => import("../pages/system/LoginHistoryPage"));
+
+function LoadingFallback() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-slate-50 dark:bg-slate-950">
+      <div className="h-10 w-10 animate-spin rounded-full border-4 border-indigo-200 border-t-indigo-600" />
+    </div>
+  );
+}
 
 function AppRoutes() {
   return (
-    <Routes>
+    <Suspense fallback={<LoadingFallback />}>
+      <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/donate" element={<PublicDonationPage />} />
@@ -81,6 +122,30 @@ function AppRoutes() {
                   title="System Settings"
                   description="Configure platform-wide settings."
                 />
+              </RoleRoute>
+            }
+          />
+          <Route
+            path="/dashboard/audit-logs"
+            element={
+              <RoleRoute allowedRoles={[ROLES.SUPER_ADMIN, ROLES.ADMIN]}>
+                <AuditLogsPage />
+              </RoleRoute>
+            }
+          />
+          <Route
+            path="/dashboard/activity"
+            element={
+              <RoleRoute allowedRoles={[ROLES.SUPER_ADMIN, ROLES.ADMIN]}>
+                <ActivityPage />
+              </RoleRoute>
+            }
+          />
+          <Route
+            path="/dashboard/login-history"
+            element={
+              <RoleRoute allowedRoles={[ROLES.SUPER_ADMIN]}>
+                <LoginHistoryPage />
               </RoleRoute>
             }
           />
@@ -185,6 +250,14 @@ function AppRoutes() {
             element={
               <RoleRoute allowedRoles={[ROLES.STUDENT]}>
                 <CertificatesPage />
+              </RoleRoute>
+            }
+          />
+          <Route
+            path="/dashboard/certificates/download-requests"
+            element={
+              <RoleRoute allowedRoles={[ROLES.SUPER_ADMIN, ROLES.ADMIN]}>
+                <CertificateDownloadRequestsPage />
               </RoleRoute>
             }
           />
@@ -387,11 +460,219 @@ function AppRoutes() {
               </RoleRoute>
             }
           />
+
+          <Route
+            path="/dashboard/notifications"
+            element={
+              <RoleRoute
+                allowedRoles={[
+                  ROLES.SUPER_ADMIN,
+                  ROLES.ADMIN,
+                  ROLES.TEACHER,
+                  ROLES.STUDENT,
+                  ROLES.PARENT,
+                ]}
+              >
+                <NotificationsPage />
+              </RoleRoute>
+            }
+          />
+
+          <Route
+            path="/dashboard/notifications/send"
+            element={
+              <RoleRoute
+                allowedRoles={[ROLES.SUPER_ADMIN, ROLES.ADMIN]}
+              >
+                <AdminNotificationsPage />
+              </RoleRoute>
+            }
+          />
+
+          <Route
+            path="/dashboard/notifications/settings"
+            element={
+              <RoleRoute
+                allowedRoles={[
+                  ROLES.SUPER_ADMIN,
+                  ROLES.ADMIN,
+                  ROLES.TEACHER,
+                  ROLES.STUDENT,
+                  ROLES.PARENT,
+                ]}
+              >
+                <NotificationSettingsPage />
+              </RoleRoute>
+            }
+          />
+
+          <Route
+            path="/dashboard/announcements"
+            element={
+              <RoleRoute
+                allowedRoles={[
+                  ROLES.SUPER_ADMIN,
+                  ROLES.ADMIN,
+                  ROLES.TEACHER,
+                  ROLES.STUDENT,
+                  ROLES.PARENT,
+                ]}
+              >
+                <AnnouncementPage />
+              </RoleRoute>
+            }
+          />
+
+          <Route
+  path="/dashboard/analytics"
+  element={
+    <RoleRoute
+      allowedRoles={[
+        ROLES.SUPER_ADMIN,
+        ROLES.ADMIN,
+        ROLES.TEACHER,
+      ]}
+    >
+      <AnalyticsDashboardPage />
+    </RoleRoute>
+  }
+/>
+
+          <Route
+            path="/dashboard/reports"
+            element={
+              <RoleRoute allowedRoles={[ROLES.SUPER_ADMIN, ROLES.ADMIN]}>
+                <ReportsDashboard />
+              </RoleRoute>
+            }
+          />
+          <Route
+            path="/dashboard/reports/users"
+            element={
+              <RoleRoute allowedRoles={[ROLES.SUPER_ADMIN, ROLES.ADMIN]}>
+                <UsersReport />
+              </RoleRoute>
+            }
+          />
+          <Route
+            path="/dashboard/reports/courses"
+            element={
+              <RoleRoute allowedRoles={[ROLES.SUPER_ADMIN, ROLES.ADMIN, ROLES.TEACHER]}>
+                <CoursesReport />
+              </RoleRoute>
+            }
+          />
+          <Route
+            path="/dashboard/reports/attendance"
+            element={
+              <RoleRoute allowedRoles={[ROLES.SUPER_ADMIN, ROLES.ADMIN, ROLES.TEACHER]}>
+                <AttendanceReport />
+              </RoleRoute>
+            }
+          />
+          <Route
+            path="/dashboard/reports/finance"
+            element={
+              <RoleRoute allowedRoles={[ROLES.SUPER_ADMIN, ROLES.ADMIN]}>
+                <FinanceReport />
+              </RoleRoute>
+            }
+          />
+          <Route
+            path="/dashboard/reports/donations"
+            element={
+              <RoleRoute allowedRoles={[ROLES.SUPER_ADMIN, ROLES.ADMIN]}>
+                <DonationReport />
+              </RoleRoute>
+            }
+          />
+          <Route
+            path="/dashboard/reports/analytics"
+            element={
+              <RoleRoute allowedRoles={[ROLES.SUPER_ADMIN, ROLES.ADMIN]}>
+                <AnalyticsReport />
+              </RoleRoute>
+            }
+          />
+          <Route
+            path="/dashboard/reports/members"
+            element={
+              <RoleRoute allowedRoles={[ROLES.SUPER_ADMIN, ROLES.ADMIN]}>
+                <MembersReport />
+              </RoleRoute>
+            }
+          />
+          <Route
+            path="/dashboard/reports/enrollments"
+            element={
+              <RoleRoute allowedRoles={[ROLES.SUPER_ADMIN, ROLES.ADMIN, ROLES.TEACHER]}>
+                <EnrollmentsReport />
+              </RoleRoute>
+            }
+          />
+          <Route
+            path="/dashboard/reports/certificates"
+            element={
+              <RoleRoute allowedRoles={[ROLES.SUPER_ADMIN, ROLES.ADMIN, ROLES.TEACHER]}>
+                <CertificatesReport />
+              </RoleRoute>
+            }
+          />
+          <Route
+            path="/dashboard/reports/expenses"
+            element={
+              <RoleRoute allowedRoles={[ROLES.SUPER_ADMIN, ROLES.ADMIN]}>
+                <ExpensesReport />
+              </RoleRoute>
+            }
+          />
+          <Route
+            path="/dashboard/reports/campaigns"
+            element={
+              <RoleRoute allowedRoles={[ROLES.SUPER_ADMIN, ROLES.ADMIN]}>
+                <CampaignsReport />
+              </RoleRoute>
+            }
+          />
+
+          <Route path="/dashboard/calendar" element={<CalendarPage />} />
+          <Route path="/dashboard/events" element={<EventsPage />} />
+          <Route path="/dashboard/events/my" element={<MyEventsPage />} />
+          <Route path="/dashboard/events/:id" element={<EventDetailPage />} />
+          <Route
+            path="/dashboard/admin/events"
+            element={
+              <RoleRoute allowedRoles={[ROLES.SUPER_ADMIN, ROLES.ADMIN]}>
+                <AdminEventsPage />
+              </RoleRoute>
+            }
+          />
+          <Route path="/dashboard/rooms" element={<RoomsPage />} />
+          <Route path="/dashboard/rooms/:id" element={<RoomDetailPage />} />
+          <Route
+            path="/dashboard/admin/rooms"
+            element={
+              <RoleRoute allowedRoles={[ROLES.SUPER_ADMIN, ROLES.ADMIN]}>
+                <AdminRoomsPage />
+              </RoleRoute>
+            }
+          />
+          <Route
+            path="/dashboard/admin/bookings"
+            element={
+              <RoleRoute allowedRoles={[ROLES.SUPER_ADMIN, ROLES.ADMIN]}>
+                <AdminBookingsPage />
+              </RoleRoute>
+            }
+          />
         </Route>
+
+        
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+      </Routes>
+    </Suspense>
   );
 }
 

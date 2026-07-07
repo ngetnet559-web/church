@@ -155,16 +155,16 @@ export default function CourseDetailPage() {
   );
 
   return (
-    <div className="space-y-6">
-      <Link to="/dashboard/courses" className="text-sm font-medium text-indigo-600 hover:text-indigo-800">
+    <div className="space-y-6 transition-colors">
+      <Link to="/dashboard/courses" className="text-sm font-medium text-indigo-600 hover:text-indigo-800 dark:text-indigo-400">
         ← Back to courses
       </Link>
 
       {error && (
-        <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>
+        <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700 dark:bg-red-950 dark:text-red-400">{error}</div>
       )}
 
-      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900">
         <img
           src={thumbnail}
           alt={course.title}
@@ -176,9 +176,9 @@ export default function CourseDetailPage() {
         <div className="p-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-slate-900">{course.title}</h1>
-              <p className="mt-2 text-slate-600">{course.description || 'No description'}</p>
-              <p className="mt-2 text-sm text-slate-500">
+              <h1 className="text-2xl font-bold text-slate-900 dark:text-white">{course.title}</h1>
+              <p className="mt-2 text-slate-600 dark:text-slate-300">{course.description || 'No description'}</p>
+              <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
                 by {course.createdBy?.name} · {course.lessonCount ?? lessons.length} lessons
               </p>
             </div>
@@ -196,7 +196,7 @@ export default function CourseDetailPage() {
                 <button
                   type="button"
                   onClick={handleDeleteCourse}
-                  className="rounded-lg border border-red-200 px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-50"
+                  className="rounded-lg border border-red-200 px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-950"
                 >
                   Delete Course
                 </button>
@@ -214,9 +214,9 @@ export default function CourseDetailPage() {
 
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2">
-          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-slate-900">Lessons</h2>
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Lessons</h2>
               {canManage && (
                 <button
                   type="button"
@@ -229,18 +229,18 @@ export default function CourseDetailPage() {
             </div>
 
             {showLessonForm && (
-              <form onSubmit={handleAddLesson} className="mt-4 space-y-3 rounded-lg bg-slate-50 p-4">
+              <form onSubmit={handleAddLesson} className="mt-4 space-y-3 rounded-lg bg-slate-50 p-4 dark:bg-slate-800">
                 <input
                   required
                   placeholder="Lesson title"
                   value={lessonForm.title}
                   onChange={(e) => setLessonForm({ ...lessonForm, title: e.target.value })}
-                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm dark:border-slate-600"
                 />
                 <select
                   value={lessonForm.contentType}
                   onChange={(e) => setLessonForm({ ...lessonForm, contentType: e.target.value })}
-                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm dark:border-slate-600"
                 >
                   {CONTENT_TYPES.map((t) => (
                     <option key={t.value} value={t.value}>
@@ -254,7 +254,7 @@ export default function CourseDetailPage() {
                     placeholder="Video URL"
                     value={lessonForm.videoUrl}
                     onChange={(e) => setLessonForm({ ...lessonForm, videoUrl: e.target.value })}
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm dark:border-slate-600"
                   />
                 )}
                 {lessonForm.contentType === 'pdf' && (
@@ -263,7 +263,7 @@ export default function CourseDetailPage() {
                     placeholder="PDF URL"
                     value={lessonForm.pdfUrl}
                     onChange={(e) => setLessonForm({ ...lessonForm, pdfUrl: e.target.value })}
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm dark:border-slate-600"
                   />
                 )}
                 {lessonForm.contentType === 'text' && (
@@ -273,7 +273,7 @@ export default function CourseDetailPage() {
                     rows={3}
                     value={lessonForm.textContent}
                     onChange={(e) => setLessonForm({ ...lessonForm, textContent: e.target.value })}
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm dark:border-slate-600"
                   />
                 )}
                 <button
@@ -286,9 +286,9 @@ export default function CourseDetailPage() {
             )}
 
             {lessons.length === 0 ? (
-              <p className="mt-4 text-sm text-slate-500">No lessons yet.</p>
+              <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">No lessons yet.</p>
             ) : (
-              <ul className="mt-4 divide-y divide-slate-100">
+              <ul className="mt-4 divide-y divide-slate-100 dark:divide-slate-700">
                 {lessons.map((lesson, index) => {
                   const isCompleted = completedLessonIds.includes(lesson.id);
                   const canView = isEnrolled || canManage || hasRole(ROLES.PARENT);
@@ -296,15 +296,15 @@ export default function CourseDetailPage() {
                   return (
                     <li key={lesson.id} className="flex items-center justify-between py-3">
                       <div className="flex items-center gap-3">
-                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-sm font-medium text-slate-600">
+                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-sm font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-300">
                           {index + 1}
                         </span>
                         <div>
-                          <p className="font-medium text-slate-900">{lesson.title}</p>
-                          <p className="text-xs capitalize text-slate-500">{lesson.contentType}</p>
+                          <p className="font-medium text-slate-900 dark:text-white">{lesson.title}</p>
+                          <p className="text-xs capitalize text-slate-500 dark:text-slate-400">{lesson.contentType}</p>
                         </div>
                         {isCompleted && (
-                          <span className="rounded-full bg-green-50 px-2 py-0.5 text-xs text-green-700">
+                          <span className="rounded-full bg-green-50 px-2 py-0.5 text-xs text-green-700 dark:bg-green-950 dark:text-green-400">
                             Done
                           </span>
                         )}
@@ -313,7 +313,7 @@ export default function CourseDetailPage() {
                         {canView && (isEnrolled || canManage) && (
                           <Link
                             to={`/dashboard/courses/${id}/lessons/${lesson.id}`}
-                            className="text-sm font-medium text-indigo-600 hover:text-indigo-800"
+                  className="text-sm font-medium text-indigo-600 hover:text-indigo-800 dark:text-indigo-400"
                           >
                             {isStudent ? 'Start' : 'View'}
                           </Link>
@@ -322,7 +322,7 @@ export default function CourseDetailPage() {
                           <button
                             type="button"
                             onClick={() => handleDeleteLesson(lesson.id)}
-                            className="text-sm text-red-600 hover:text-red-800"
+                            className="text-sm text-red-600 hover:text-red-800 dark:text-red-400"
                           >
                             Delete
                           </button>
@@ -336,13 +336,13 @@ export default function CourseDetailPage() {
           </div>
         </div>
 
-        {enrollments.length > 0 && canManage && (
-          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-slate-900">Enrolled Students</h2>
+          {enrollments.length > 0 && canManage && (
+          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Enrolled Students</h2>
             <ul className="mt-4 space-y-3">
               {enrollments.map((e) => (
                 <li key={e.id} className="text-sm">
-                  <p className="font-medium text-slate-900">{e.user.name}</p>
+                  <p className="font-medium text-slate-900 dark:text-white">{e.user.name}</p>
                   <ProgressBar value={e.progress} className="mt-1" />
                 </li>
               ))}
@@ -352,24 +352,24 @@ export default function CourseDetailPage() {
       </div>
 
       {attendanceSessions.length > 0 && (canManage || isEnrolled) && (
-        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-slate-900">Course Attendance</h2>
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Course Attendance</h2>
             {canManage && (
               <Link
                 to="/dashboard/attendance/sessions"
-                className="text-sm font-medium text-indigo-600 hover:text-indigo-800"
+                className="text-sm font-medium text-indigo-600 hover:text-indigo-800 dark:text-indigo-400"
               >
                 Manage Sessions
               </Link>
             )}
           </div>
-          <ul className="mt-4 divide-y divide-slate-100">
+          <ul className="mt-4 divide-y divide-slate-100 dark:divide-slate-700">
             {attendanceSessions.map((session) => (
               <li key={session.id} className="flex items-center justify-between py-3">
                 <div>
-                  <p className="font-medium text-slate-900">{session.title}</p>
-                  <p className="text-sm text-slate-500">
+                  <p className="font-medium text-slate-900 dark:text-white">{session.title}</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">
                     {new Date(session.date).toLocaleDateString()} · {session.programType}
                   </p>
                 </div>
@@ -395,7 +395,7 @@ export default function CourseDetailPage() {
                   {canManage && (
                     <Link
                       to={`/dashboard/attendance/${session.id}`}
-                      className="text-sm font-medium text-indigo-600 hover:text-indigo-800"
+                      className="text-sm font-medium text-indigo-600 hover:text-indigo-800 dark:text-indigo-400"
                     >
                       Take Attendance
                     </Link>

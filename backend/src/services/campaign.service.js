@@ -42,6 +42,9 @@ export const createCampaign = async (user, data, reqMeta = {}) => {
     createdBy: user._id,
   });
 
+  import("../services/audit.service.js").then(m => m.logAudit({ user, action: "Create", module: "Campaign", targetCollection: "DonationCampaign", targetId: campaign._id, description: `Campaign "${campaign.title}" created` })).catch(() => {});
+  import("../services/activity.service.js").then(m => m.logActivity({ user, activityType: "campaign_created", module: "Campaign", description: `Campaign "${campaign.title}" created`, targetId: campaign._id, targetModel: "DonationCampaign" })).catch(() => {});
+
   await logAudit({
     user,
     action: AUDIT_ACTIONS.CAMPAIGN_CREATED,
@@ -49,6 +52,8 @@ export const createCampaign = async (user, data, reqMeta = {}) => {
     entityId: campaign._id,
     ip: reqMeta.ip,
   });
+
+  import("../services/autoNotification.service.js").then(m => m.notifyCampaignCreated(campaign, user)).catch(() => {});
 
   return formatCampaign(campaign);
 };

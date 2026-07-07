@@ -32,6 +32,17 @@ const certificateSchema = new mongoose.Schema(
       default: "",
       trim: true,
     },
+    previewImage: {
+      type: String,
+      default: "",
+    },
+    originalFile: {
+      type: String,
+      default: "",
+    },
+    completedAt: {
+      type: Date,
+    },
     verificationCode: {
       type: String,
       required: true,

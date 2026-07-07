@@ -4,6 +4,8 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import { NAV_ITEMS } from '../../config/navigation.js';
 import { ROLE_LABELS } from '../../constants/roles.js';
 import Sidebar from './Sidebar.jsx';
+import ThemeToggle from '../ThemeToggle.jsx';
+import NotificationBell from '../notifications/NotificationBell.jsx';
 
 export default function DashboardLayout() {
   const { user, logout } = useAuth();
@@ -18,20 +20,20 @@ export default function DashboardLayout() {
   };
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors">
       <Sidebar
         items={navItems}
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
       />
 
-      <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-30 border-b border-slate-200 bg-white">
+      <div className="flex min-w-0 flex-1 flex-col lg:ml-64">
+        <header className="sticky top-0 z-30 border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
           <div className="flex items-center justify-between px-4 py-4 lg:px-8">
             <div className="flex items-center gap-3">
               <button
                 type="button"
-                className="rounded-lg p-2 text-slate-600 hover:bg-slate-100 lg:hidden"
+                className="rounded-lg p-2 text-slate-600 hover:bg-slate-100 lg:hidden dark:text-slate-300 dark:hover:bg-slate-800"
                 onClick={() => setSidebarOpen(true)}
                 aria-label="Open menu"
               >
@@ -40,19 +42,21 @@ export default function DashboardLayout() {
                 </svg>
               </button>
               <div>
-                <p className="text-sm text-slate-500">Welcome back</p>
-                <p className="font-semibold text-slate-900">{user?.name}</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400">Welcome back</p>
+                <p className="font-semibold text-slate-900 dark:text-white">{user?.name}</p>
               </div>
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="hidden rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700 sm:inline">
+              <NotificationBell />
+              <ThemeToggle />
+              <span className="hidden rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700 sm:inline dark:bg-indigo-950 dark:text-indigo-300">
                 {ROLE_LABELS[user?.role]}
               </span>
               <button
                 type="button"
                 onClick={handleLogout}
-                className="rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
+                className="rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
               >
                 Logout
               </button>

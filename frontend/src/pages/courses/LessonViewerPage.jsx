@@ -76,15 +76,15 @@ export default function LessonViewerPage() {
   }
 
   return (
-    <div className="flex flex-col gap-6 lg:flex-row">
-      <aside className="w-full shrink-0 rounded-xl border border-slate-200 bg-white p-4 shadow-sm lg:w-72">
+    <div className="flex flex-col gap-6 transition-colors lg:flex-row">
+      <aside className="w-full shrink-0 rounded-xl border border-slate-200 bg-white p-4 shadow-sm lg:w-72 dark:border-slate-700 dark:bg-slate-900">
         <Link
           to={`/dashboard/courses/${courseId}`}
           className="text-sm font-medium text-indigo-600 hover:text-indigo-800"
         >
           ← {course?.title}
         </Link>
-        <h2 className="mt-4 text-sm font-semibold uppercase tracking-wider text-slate-500">
+        <h2 className="mt-4 text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
           Lessons
         </h2>
         <ul className="mt-2 space-y-1">
@@ -97,11 +97,11 @@ export default function LessonViewerPage() {
                   to={`/dashboard/courses/${courseId}/lessons/${lesson.id}`}
                   className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm ${
                     active
-                      ? 'bg-indigo-50 font-medium text-indigo-700'
-                      : 'text-slate-600 hover:bg-slate-50'
+                      ? 'bg-indigo-50 font-medium text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300'
+                      : 'text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800'
                   }`}
                 >
-                  <span className="text-xs text-slate-400">{index + 1}</span>
+                  <span className="text-xs text-slate-400 dark:text-slate-500">{index + 1}</span>
                   <span className="flex-1 truncate">{lesson.title}</span>
                   {done && <span className="text-green-500">✓</span>}
                 </Link>
@@ -113,12 +113,12 @@ export default function LessonViewerPage() {
 
       <main className="min-w-0 flex-1">
         {error && (
-          <div className="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>
+          <div className="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700 dark:bg-red-950 dark:text-red-400">{error}</div>
         )}
 
-        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h1 className="text-2xl font-bold text-slate-900">{currentLesson.title}</h1>
-          <p className="mt-1 text-sm capitalize text-slate-500">{currentLesson.contentType} lesson</p>
+        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">{currentLesson.title}</h1>
+          <p className="mt-1 text-sm capitalize text-slate-500 dark:text-slate-400">{currentLesson.contentType} lesson</p>
 
           <div className="mt-6">
             {currentLesson.contentType === 'video' && currentLesson.videoUrl && (
@@ -137,13 +137,13 @@ export default function LessonViewerPage() {
                 <iframe
                   src={currentLesson.pdfUrl}
                   title={currentLesson.title}
-                  className="h-[600px] w-full rounded-lg border border-slate-200"
+                  className="h-[600px] w-full rounded-lg border border-slate-200 dark:border-slate-700"
                 />
                 <a
                   href={currentLesson.pdfUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm font-medium text-indigo-600 hover:text-indigo-800"
+          className="text-sm font-medium text-indigo-600 hover:text-indigo-800 dark:text-indigo-400"
                 >
                   Open PDF in new tab
                 </a>
@@ -151,8 +151,8 @@ export default function LessonViewerPage() {
             )}
 
             {currentLesson.contentType === 'text' && (
-              <div className="prose prose-slate max-w-none rounded-lg bg-slate-50 p-6">
-                <p className="whitespace-pre-wrap text-slate-700">{currentLesson.textContent}</p>
+              <div className="prose prose-slate max-w-none rounded-lg bg-slate-50 p-6 dark:bg-slate-800">
+                <p className="whitespace-pre-wrap text-slate-700 dark:text-slate-300">{currentLesson.textContent}</p>
               </div>
             )}
           </div>
@@ -164,7 +164,7 @@ export default function LessonViewerPage() {
               disabled={completing}
               className={`mt-6 rounded-lg px-4 py-2.5 text-sm font-semibold text-white disabled:opacity-60 ${
                 isCompleted
-                  ? 'bg-slate-600 hover:bg-slate-700'
+                  ? 'bg-slate-600 hover:bg-slate-700 dark:bg-slate-500 dark:hover:bg-slate-600'
                   : 'bg-indigo-600 hover:bg-indigo-700'
               }`}
             >
@@ -176,7 +176,7 @@ export default function LessonViewerPage() {
             </button>
           )}
 
-          <div className="mt-8 flex justify-between border-t border-slate-100 pt-6">
+          <div className="mt-8 flex justify-between border-t border-slate-100 pt-6 dark:border-slate-700">
             {prevLesson ? (
               <Link
                 to={`/dashboard/courses/${courseId}/lessons/${prevLesson.id}`}

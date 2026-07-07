@@ -1,6 +1,7 @@
 import { Router } from "express";
 import * as donationController from "../controllers/donation.controller.js";
 import { authenticate } from "../middleware/authenticate.js";
+import { optionalAuthenticate } from "../middleware/optionalAuthenticate.js";
 import { authorize } from "../middleware/authorize.js";
 import { requireDatabase } from "../middleware/requireDatabase.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
@@ -10,10 +11,19 @@ const router = Router();
 
 router.use(requireDatabase);
 
-router.post("/donations", asyncHandler(donationController.createDonation));
-router.get("/donations/:id", asyncHandler(donationController.getDonationById));
+router.post(
+  "/donations",
+  optionalAuthenticate,
+  asyncHandler(donationController.createDonation),
+);
+router.get(
+  "/donations/:id",
+  optionalAuthenticate,
+  asyncHandler(donationController.getDonationById),
+);
 router.get(
   "/donations/:id/receipt",
+  optionalAuthenticate,
   asyncHandler(donationController.generateReceipt),
 );
 

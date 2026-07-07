@@ -124,10 +124,10 @@ export default function AttendanceDashboardPage() {
 
   if (loading) {
     return (
-      <div className="space-y-6">
+      <div className="space-y-6 transition-colors">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Attendance Dashboard</h1>
-          <p className="mt-1 text-slate-600">Overview of attendance and certificates.</p>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Attendance Dashboard</h1>
+          <p className="mt-1 text-slate-600 dark:text-slate-300">Overview of attendance and certificates.</p>
         </div>
         <div className="flex justify-center py-12">
           <div className="h-10 w-10 animate-spin rounded-full border-4 border-indigo-200 border-t-indigo-600" />
@@ -138,12 +138,12 @@ export default function AttendanceDashboardPage() {
 
   if (error) {
     return (
-      <div className="space-y-6">
+      <div className="space-y-6 transition-colors">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Attendance Dashboard</h1>
-          <p className="mt-1 text-slate-600">Overview of attendance and certificates.</p>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Attendance Dashboard</h1>
+          <p className="mt-1 text-slate-600 dark:text-slate-300">Overview of attendance and certificates.</p>
         </div>
-        <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>
+        <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700 dark:bg-red-950 dark:text-red-400">{error}</div>
         <Link
           to="/dashboard/attendance/sessions"
           className="inline-flex rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700"
@@ -160,11 +160,11 @@ export default function AttendanceDashboardPage() {
   const trend = Array.isArray(stats?.trend) ? stats.trend : [];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 transition-colors">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Attendance Dashboard</h1>
-          <p className="mt-1 text-slate-600">Overview of attendance and certificates.</p>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Attendance Dashboard</h1>
+          <p className="mt-1 text-slate-600 dark:text-slate-300">Overview of attendance and certificates.</p>
         </div>
         <Link
           to="/dashboard/attendance/sessions"
@@ -198,80 +198,80 @@ export default function AttendanceDashboardPage() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-slate-900">Attendance Trend (7 Days)</h2>
+        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Attendance Trend (7 Days)</h2>
           <div className="mt-4">
             <TrendChart data={trend} />
           </div>
         </div>
 
-        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-slate-900">Certificates Issued</h2>
+        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Certificates Issued</h2>
           {certStats ? (
             <div className="mt-4">
               <div className="mb-4 grid grid-cols-3 gap-4 text-center">
                 <div>
-                  <p className="text-2xl font-bold text-slate-900">{certStats.total ?? 0}</p>
-                  <p className="text-xs text-slate-500">Total</p>
+                  <p className="text-2xl font-bold text-slate-900 dark:text-white">{certStats.total ?? 0}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">Total</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-slate-900">{certStats.thisMonth ?? 0}</p>
-                  <p className="text-xs text-slate-500">This Month</p>
+                  <p className="text-2xl font-bold text-slate-900 dark:text-white">{certStats.thisMonth ?? 0}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">This Month</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-slate-900">{certStats.thisYear ?? 0}</p>
-                  <p className="text-xs text-slate-500">This Year</p>
+                  <p className="text-2xl font-bold text-slate-900 dark:text-white">{certStats.thisYear ?? 0}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">This Year</p>
                 </div>
               </div>
               <BarChart data={certStats.monthlyBreakdown ?? []} color="bg-emerald-500" />
             </div>
           ) : (
-            <p className="mt-4 text-sm text-slate-500">Certificate stats unavailable.</p>
+            <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">Certificate stats unavailable.</p>
           )}
         </div>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-slate-900">Students Absent Today</h2>
+        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Students Absent Today</h2>
           {absentToday.length === 0 ? (
-            <p className="mt-4 text-sm text-slate-500">No absences recorded today.</p>
+            <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">No absences recorded today.</p>
           ) : (
             <ul className="mt-4 space-y-2">
               {absentToday.map((student, index) => (
                 <li
                   key={student?.id ?? `absent-${index}`}
-                  className="flex items-center justify-between rounded-lg bg-red-50 px-4 py-2 text-sm"
+                  className="flex items-center justify-between rounded-lg bg-red-50 px-4 py-2 text-sm dark:bg-red-950"
                 >
-                  <span className="font-medium text-slate-900">{student?.name ?? 'Unknown student'}</span>
-                  <span className="text-slate-500">{student?.email ?? '—'}</span>
+                  <span className="font-medium text-slate-900 dark:text-white">{student?.name ?? 'Unknown student'}</span>
+                  <span className="text-slate-500 dark:text-slate-400">{student?.email ?? '—'}</span>
                 </li>
               ))}
             </ul>
           )}
         </div>
 
-        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-slate-900">Top Attendance Students</h2>
+        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Top Attendance Students</h2>
           {topStudents.length === 0 ? (
-            <p className="mt-4 text-sm text-slate-500">No attendance data yet.</p>
+            <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">No attendance data yet.</p>
           ) : (
             <ul className="mt-4 space-y-3">
               {topStudents.map((student, index) => (
                 <li key={student?.id ?? `top-${index}`} className="flex items-center gap-3">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 text-sm font-bold text-indigo-700">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 text-sm font-bold text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300">
                     {index + 1}
                   </span>
                   <div className="flex-1">
-                    <p className="font-medium text-slate-900">{student?.name ?? 'Unknown student'}</p>
-                    <div className="mt-1 h-2 rounded-full bg-slate-100">
+                    <p className="font-medium text-slate-900 dark:text-white">{student?.name ?? 'Unknown student'}</p>
+                    <div className="mt-1 h-2 rounded-full bg-slate-100 dark:bg-slate-700">
                       <div
                         className="h-2 rounded-full bg-indigo-500"
                         style={{ width: `${student?.attendancePercent ?? 0}%` }}
                       />
                     </div>
                   </div>
-                  <span className="text-sm font-semibold text-indigo-600">
+                  <span className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">
                     {student?.attendancePercent ?? 0}%
                   </span>
                 </li>
@@ -286,10 +286,10 @@ export default function AttendanceDashboardPage() {
 
 function StatCard({ label, value, sub }) {
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-      <p className="text-sm font-medium text-slate-500">{label}</p>
-      <p className="mt-2 text-3xl font-bold text-slate-900">{value}</p>
-      {sub && <p className="mt-1 text-xs text-slate-500">{sub}</p>}
+    <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+      <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{label}</p>
+      <p className="mt-2 text-3xl font-bold text-slate-900 dark:text-white">{value}</p>
+      {sub && <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{sub}</p>}
     </div>
   );
 }

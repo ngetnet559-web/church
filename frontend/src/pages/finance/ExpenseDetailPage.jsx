@@ -29,11 +29,11 @@ function ExpenseDetailPage() {
   };
 
   if (loading) return <div>Loading expense...</div>;
-  if (error) return <div className="text-red-600">{error}</div>;
+  if (error) return <div className="text-red-600 dark:text-red-400">{error}</div>;
 
   return (
     <div className="space-y-6">
-      <Link to="/dashboard/finance/expenses" className="text-sm text-emerald-600 hover:underline">
+      <Link to="/dashboard/finance/expenses" className="text-sm text-emerald-600 hover:underline dark:text-emerald-400">
         ← Back to expenses
       </Link>
       <ExpenseCard expense={expense} onApprove={expense.status === "Pending" ? handleApprove : undefined} />

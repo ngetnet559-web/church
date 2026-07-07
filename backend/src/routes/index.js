@@ -18,6 +18,15 @@ import campaignRoutes from "./campaign.routes.js";
 import expenseRoutes from "./expense.routes.js";
 import budgetRoutes from "./budget.routes.js";
 import memberProfileRoutes from "./memberProfile.routes.js";
+import analyticsRoutes from "./analytics.routes.js";
+import notificationRoutes from "./notification.routes.js";
+import announcementRoutes from "./announcement.routes.js";
+import eventRoutes from "./event.routes.js";
+import roomRoutes from "./room.routes.js";
+import bookingRoutes from "./booking.routes.js";
+import reportRoutes from "./report.routes.js";
+import auditRoutes from "./audit.routes.js";
+import activityRoutes from "./activity.routes.js";
 
 const router = Router();
 
@@ -40,5 +49,14 @@ router.use(expenseRoutes);
 router.use(budgetRoutes);
 router.use("/finance", financeRoutes);
 router.use("/finance", financeReportRoutes);
+router.use("/analytics", analyticsRoutes);
+router.use("/notifications", notificationRoutes);
+router.use("/announcements", announcementRoutes);
+router.use("/events", eventRoutes);
+router.use("/rooms", roomRoutes);
+router.use("/bookings", bookingRoutes);
+router.use("/reports", reportRoutes);
+router.use("/audit", auditRoutes);
+router.use("/activity", activityRoutes);
 
 export default router;

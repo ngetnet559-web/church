@@ -8,7 +8,7 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const loadUser = useCallback(async () => {
+  const fetchCurrentUser = useCallback(async () => {
     const token = storage.getToken();
     if (!token) {
       setUser(null);
@@ -28,14 +28,24 @@ export function AuthProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    loadUser();
-  }, [loadUser]);
+    fetchCurrentUser();
+  }, [fetchCurrentUser]);
 
   const login = async (credentials) => {
     const response = await authService.login(credentials);
     storage.setToken(response.data.token);
-    setUser(response.data.user);
-    return response.data.user;
+    // Fetch fresh user profile from /me instead of trusting login response data.
+    // This guarantees the role and all user fields match the backend exactly.
+    try {
+      const meResponse = await authService.getMe();
+      const freshUser = meResponse.data.user;
+      setUser(freshUser);
+      return freshUser;
+    } catch (err) {
+      // getMe failed — remove the token we just stored so no stale token lingers
+      storage.removeToken();
+      throw err;
+    }
   };
 
   const logout = async () => {

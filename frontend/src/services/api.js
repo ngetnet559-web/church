@@ -9,26 +9,38 @@ class ApiError extends Error {
   }
 }
 
-export const api = async (endpoint, options = {}) => {
+function buildHeaders(customHeaders = {}) {
   const token = storage.getToken();
-
-  const headers = {
+  return {
     'Content-Type': 'application/json',
-    ...options.headers,
+    ...customHeaders,
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
+}
 
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
+function handleAuthError(status) {
+  if (status === 401) {
+    storage.removeToken();
+    const currentPath = window.location.pathname;
+    if (currentPath !== '/login') {
+      window.location.href = '/login';
+    }
   }
+}
+
+export const api = async (endpoint, options = {}) => {
+  const headers = buildHeaders(options.headers);
+  const { headers: _omit, ...rest } = options;
 
   const response = await fetch(`${API_BASE}${endpoint}`, {
-    ...options,
+    ...rest,
     headers,
   });
 
   const data = await response.json().catch(() => ({}));
 
   if (!response.ok) {
+    handleAuthError(response.status);
     throw new ApiError(data.message || 'Request failed', response.status);
   }
 

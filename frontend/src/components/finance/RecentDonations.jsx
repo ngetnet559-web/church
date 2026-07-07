@@ -2,7 +2,7 @@ import DonationCard from "./DonationCard.jsx";
 
 function RecentDonations({ donations = [], onSelect }) {
   if (!donations.length) {
-    return <p className="text-sm text-gray-500">No recent donations.</p>;
+    return <p className="text-sm text-gray-500 dark:text-slate-400">No recent donations.</p>;
   }
 
   return (

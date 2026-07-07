@@ -1,12 +1,12 @@
 function ExpenseTable({ expenses = [], onApprove }) {
   if (!expenses.length) {
-    return <p className="text-sm text-gray-500">No expenses found.</p>;
+    return <p className="text-sm text-gray-500 dark:text-slate-400">No expenses found.</p>;
   }
 
   return (
-    <div className="overflow-hidden rounded-xl border bg-white shadow-sm">
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
+    <div className="overflow-hidden rounded-xl border bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900">
+      <table className="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
+        <thead className="bg-gray-50 dark:bg-slate-800">
           <tr>
             <th className="px-4 py-3 text-left text-sm font-semibold">Title</th>
             <th className="px-4 py-3 text-left text-sm font-semibold">Category</th>
@@ -18,7 +18,7 @@ function ExpenseTable({ expenses = [], onApprove }) {
         </thead>
         <tbody>
           {expenses.map((expense) => (
-            <tr key={expense.id} className="border-t hover:bg-gray-50">
+            <tr key={expense.id} className="border-t hover:bg-gray-50 dark:border-slate-700 dark:hover:bg-slate-800">
               <td className="px-4 py-3 text-sm">{expense.title}</td>
               <td className="px-4 py-3 text-sm">{expense.category}</td>
               <td className="px-4 py-3 text-sm">{expense.amount} ETB</td>
@@ -31,7 +31,7 @@ function ExpenseTable({ expenses = [], onApprove }) {
                   <button
                     type="button"
                     onClick={() => onApprove(expense.id)}
-                    className="text-emerald-600 hover:underline"
+                    className="text-emerald-600 hover:underline dark:text-emerald-400"
                   >
                     Approve
                   </button>

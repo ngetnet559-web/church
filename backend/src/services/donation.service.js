@@ -146,6 +146,10 @@ export const createDonation = async (user, data, reqMeta = {}) => {
     await incrementCampaignAmount(donation.campaignId, amount);
   }
 
+  import("../services/autoNotification.service.js").then(m => m.notifyDonationReceived(donation)).catch(() => {});
+  import("../services/audit.service.js").then(m => m.logAudit({ user, action: "Create", module: "Donation", targetCollection: "Donation", targetId: donation._id, description: `Donation of ${amount} ${donation.currency} created` })).catch(() => {});
+  import("../services/activity.service.js").then(m => m.logActivity({ user, activityType: "donation_created", module: "Donation", description: `Donation of ${amount} created${donation.campaignId ? " for campaign" : ""}`, targetId: donation._id, targetModel: "Donation" })).catch(() => {});
+
   let payment = null;
   if (isOnlinePaymentMethod(paymentMethod)) {
     const provider = getPaymentProvider(paymentMethod);
@@ -334,6 +338,10 @@ export const approveOfflineDonation = async (user, donationId, reqMeta = {}) => 
   donation.paymentStatus = "Paid";
   await donation.save();
   await incrementCampaignAmount(donation.campaignId, donation.amount);
+
+  import("../services/autoNotification.service.js").then(m => m.notifyDonationApproved(donation)).catch(() => {});
+  import("../services/audit.service.js").then(m => m.logAudit({ user, action: "Approve", module: "Donation", targetCollection: "Donation", targetId: donation._id, description: `Donation of ${donation.amount} approved` })).catch(() => {});
+  import("../services/activity.service.js").then(m => m.logActivity({ user, activityType: "donation_approved", module: "Donation", description: `Donation of ${donation.amount} approved`, targetId: donation._id, targetModel: "Donation" })).catch(() => {});
 
   await logAudit({
     user,

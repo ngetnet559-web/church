@@ -84,30 +84,30 @@ function PublicDonationPage() {
               <CampaignCard key={campaign.id} campaign={campaign} />
             ))
           ) : (
-            <p className="text-sm text-gray-500">No active campaigns at this time.</p>
+            <p className="text-sm text-gray-500 dark:text-slate-400">No active campaigns at this time.</p>
           )}
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4 rounded-xl border bg-white p-4 shadow-sm">
+        <form onSubmit={handleSubmit} className="space-y-4 rounded-xl border bg-white p-4 shadow-sm transition-colors dark:border-slate-700 dark:bg-slate-900">
           <h2 className="text-xl font-semibold">Make a Donation</h2>
           {!form.anonymous ? (
             <>
               <input
-                className="w-full rounded border px-3 py-2"
+                className="w-full rounded border px-3 py-2 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
                 placeholder="Your name *"
                 value={form.donorName}
                 onChange={(e) => setForm({ ...form, donorName: e.target.value })}
                 required
               />
               <input
-                className="w-full rounded border px-3 py-2"
+                className="w-full rounded border px-3 py-2 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
                 placeholder="Email"
                 type="email"
                 value={form.donorEmail}
                 onChange={(e) => setForm({ ...form, donorEmail: e.target.value })}
               />
               <input
-                className="w-full rounded border px-3 py-2"
+                className="w-full rounded border px-3 py-2 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
                 placeholder="Phone"
                 value={form.donorPhone}
                 onChange={(e) => setForm({ ...form, donorPhone: e.target.value })}
@@ -115,7 +115,7 @@ function PublicDonationPage() {
             </>
           ) : null}
           <input
-            className="w-full rounded border px-3 py-2"
+            className="w-full rounded border px-3 py-2 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
             placeholder="Amount (ETB) *"
             type="number"
             min="1"
@@ -124,7 +124,7 @@ function PublicDonationPage() {
             required
           />
           <select
-            className="w-full rounded border px-3 py-2"
+            className="w-full rounded border px-3 py-2 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
             value={form.donationType}
             onChange={(e) => setForm({ ...form, donationType: e.target.value })}
           >
@@ -133,7 +133,7 @@ function PublicDonationPage() {
             ))}
           </select>
           <select
-            className="w-full rounded border px-3 py-2"
+            className="w-full rounded border px-3 py-2 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
             value={form.paymentMethod}
             onChange={(e) => setForm({ ...form, paymentMethod: e.target.value })}
           >
@@ -142,7 +142,7 @@ function PublicDonationPage() {
             ))}
           </select>
           <select
-            className="w-full rounded border px-3 py-2"
+            className="w-full rounded border px-3 py-2 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
             value={form.campaignId}
             onChange={(e) => setForm({ ...form, campaignId: e.target.value })}
           >
@@ -152,7 +152,7 @@ function PublicDonationPage() {
             ))}
           </select>
           <textarea
-            className="w-full rounded border px-3 py-2"
+            className="w-full rounded border px-3 py-2 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
             placeholder="Leave a prayer or message"
             value={form.message}
             onChange={(e) => setForm({ ...form, message: e.target.value })}
@@ -168,11 +168,11 @@ function PublicDonationPage() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full rounded bg-emerald-600 px-4 py-2 font-medium text-white hover:bg-emerald-700 disabled:opacity-50"
+            className="w-full rounded bg-emerald-600 px-4 py-2 font-medium text-white hover:bg-emerald-700 disabled:opacity-50 dark:bg-emerald-500 dark:hover:bg-emerald-600"
           >
             {submitting ? "Processing..." : "Donate Now"}
           </button>
-          {error ? <p className="text-sm text-red-600">{error}</p> : null}
+          {error ? <p className="text-sm text-red-600 dark:text-red-400">{error}</p> : null}
         </form>
       </div>
     </div>

@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom';
 
 export default function Unauthorized() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4 transition-colors dark:bg-slate-900">
       <div className="max-w-md text-center">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-100">
-          <svg className="h-8 w-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-100 dark:bg-red-950">
+          <svg className="h-8 w-8 text-red-600 dark:text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -14,8 +14,8 @@ export default function Unauthorized() {
             />
           </svg>
         </div>
-        <h1 className="mt-6 text-2xl font-bold text-slate-900">Access Denied</h1>
-        <p className="mt-2 text-slate-600">
+        <h1 className="mt-6 text-2xl font-bold text-slate-900 dark:text-white">Access Denied</h1>
+        <p className="mt-2 text-slate-600 dark:text-slate-300">
           You do not have permission to view this page. Contact your administrator if you
           believe this is an error.
         </p>
@@ -28,7 +28,7 @@ export default function Unauthorized() {
           </Link>
           <Link
             to="/"
-            className="rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+            className="rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
           >
             Back to Home
           </Link>

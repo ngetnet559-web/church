@@ -71,11 +71,11 @@ export default function UsersPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 transition-colors">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">User Management</h1>
-          <p className="mt-1 text-slate-600">Create accounts, assign roles, and manage access.</p>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">User Management</h1>
+          <p className="mt-1 text-slate-600 dark:text-slate-300">Create accounts, assign roles, and manage access.</p>
         </div>
         <button
           type="button"
@@ -87,22 +87,22 @@ export default function UsersPage() {
       </div>
 
       {error && (
-        <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>
+        <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700 dark:bg-red-950 dark:text-red-400">{error}</div>
       )}
 
       {showForm && (
         <form
           onSubmit={handleCreate}
-          className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm"
+          className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900"
         >
-          <h2 className="text-lg font-semibold text-slate-900">New User</h2>
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white">New User</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <input
               required
               placeholder="Full name"
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="rounded-lg border border-slate-300 px-4 py-2.5 outline-none focus:border-indigo-500"
+              className="rounded-lg border border-slate-300 px-4 py-2.5 outline-none focus:border-indigo-500 dark:border-slate-600 dark:bg-slate-800 dark:text-white"
             />
             <input
               required
@@ -110,7 +110,7 @@ export default function UsersPage() {
               placeholder="Email"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="rounded-lg border border-slate-300 px-4 py-2.5 outline-none focus:border-indigo-500"
+              className="rounded-lg border border-slate-300 px-4 py-2.5 outline-none focus:border-indigo-500 dark:border-slate-600 dark:bg-slate-800 dark:text-white"
             />
             <input
               required
@@ -119,12 +119,12 @@ export default function UsersPage() {
               minLength={6}
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
-              className="rounded-lg border border-slate-300 px-4 py-2.5 outline-none focus:border-indigo-500"
+              className="rounded-lg border border-slate-300 px-4 py-2.5 outline-none focus:border-indigo-500 dark:border-slate-600 dark:bg-slate-800 dark:text-white"
             />
             <select
               value={form.role}
               onChange={(e) => setForm({ ...form, role: e.target.value })}
-              className="rounded-lg border border-slate-300 px-4 py-2.5 outline-none focus:border-indigo-500"
+              className="rounded-lg border border-slate-300 px-4 py-2.5 outline-none focus:border-indigo-500 dark:border-slate-600 dark:bg-slate-800 dark:text-white"
             >
               {ALL_ROLES.filter((r) => r !== ROLES.SUPER_ADMIN).map((role) => (
                 <option key={role} value={role}>
@@ -143,34 +143,34 @@ export default function UsersPage() {
         </form>
       )}
 
-      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900">
         {loading ? (
-          <div className="p-8 text-center text-slate-500">Loading users...</div>
+          <div className="p-8 text-center text-slate-500 dark:text-slate-400">Loading users...</div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full min-w-[640px] text-left text-sm">
-              <thead className="border-b border-slate-200 bg-slate-50">
+              <thead className="border-b border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-800">
                 <tr>
-                  <th className="px-4 py-3 font-medium text-slate-600">Name</th>
-                  <th className="px-4 py-3 font-medium text-slate-600">Email</th>
-                  <th className="px-4 py-3 font-medium text-slate-600">Role</th>
-                  <th className="px-4 py-3 font-medium text-slate-600">Status</th>
-                  <th className="px-4 py-3 font-medium text-slate-600">Actions</th>
+                  <th className="px-4 py-3 font-medium text-slate-600 dark:text-slate-300">Name</th>
+                  <th className="px-4 py-3 font-medium text-slate-600 dark:text-slate-300">Email</th>
+                  <th className="px-4 py-3 font-medium text-slate-600 dark:text-slate-300">Role</th>
+                  <th className="px-4 py-3 font-medium text-slate-600 dark:text-slate-300">Status</th>
+                  <th className="px-4 py-3 font-medium text-slate-600 dark:text-slate-300">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
                 {users.map((user) => (
-                  <tr key={user.id} className="hover:bg-slate-50">
-                    <td className="px-4 py-3 font-medium text-slate-900">{user.name}</td>
-                    <td className="px-4 py-3 text-slate-600">{user.email}</td>
+                  <tr key={user.id} className="hover:bg-slate-50 dark:hover:bg-slate-800">
+                    <td className="px-4 py-3 font-medium text-slate-900 dark:text-white">{user.name}</td>
+                    <td className="px-4 py-3 text-slate-600 dark:text-slate-300">{user.email}</td>
                     <td className="px-4 py-3">
                       {user.role === ROLES.SUPER_ADMIN ? (
-                        <span className="text-slate-600">{ROLE_LABELS[user.role]}</span>
+                        <span className="text-slate-600 dark:text-slate-300">{ROLE_LABELS[user.role]}</span>
                       ) : (
                         <select
                           value={user.role}
                           onChange={(e) => handleRoleChange(user.id, e.target.value)}
-                          className="rounded border border-slate-300 px-2 py-1 text-sm"
+                          className="rounded border border-slate-300 px-2 py-1 text-sm dark:border-slate-600 dark:bg-slate-800 dark:text-white"
                         >
                           {ALL_ROLES.filter((r) => r !== ROLES.SUPER_ADMIN).map((role) => (
                             <option key={role} value={role}>
@@ -184,8 +184,8 @@ export default function UsersPage() {
                       <span
                         className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${
                           user.isActive
-                            ? 'bg-green-50 text-green-700'
-                            : 'bg-red-50 text-red-700'
+                            ? 'bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-400'
+                            : 'bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-400'
                         }`}
                       >
                         {user.isActive ? 'Active' : 'Inactive'}
@@ -196,7 +196,7 @@ export default function UsersPage() {
                         <button
                           type="button"
                           onClick={() => handleToggleActive(user)}
-                          className="text-sm font-medium text-indigo-600 hover:text-indigo-800"
+                          className="text-sm font-medium text-indigo-600 hover:text-indigo-800 dark:text-indigo-400"
                         >
                           {user.isActive ? 'Deactivate' : 'Activate'}
                         </button>

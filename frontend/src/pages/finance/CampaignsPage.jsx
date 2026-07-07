@@ -54,7 +54,7 @@ function CampaignsPage() {
         <button
           type="button"
           onClick={() => setShowForm(!showForm)}
-          className="rounded-lg bg-emerald-600 px-4 py-2 text-sm text-white hover:bg-emerald-700"
+          className="rounded-lg bg-emerald-600 px-4 py-2 text-sm text-white hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600"
         >
           {showForm ? "Cancel" : "New Campaign"}
         </button>
@@ -63,7 +63,7 @@ function CampaignsPage() {
       {showForm ? (
         <form
           onSubmit={handleSubmit}
-          className="space-y-4 rounded-xl border bg-white p-4 shadow-sm"
+          className="space-y-4 rounded-xl border bg-white p-4 shadow-sm transition-colors dark:border-slate-700 dark:bg-slate-900"
         >
           <input
             className="w-full rounded border px-3 py-2"
@@ -80,7 +80,7 @@ function CampaignsPage() {
           />
           <div className="grid gap-4 md:grid-cols-2">
             <input
-              className="rounded border px-3 py-2"
+              className="rounded border px-3 py-2 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
               placeholder="Goal amount"
               type="number"
               value={form.goalAmount}
@@ -96,13 +96,13 @@ function CampaignsPage() {
               Featured campaign
             </label>
           </div>
-          <button type="submit" className="rounded bg-slate-900 px-4 py-2 text-white">
+          <button type="submit" className="rounded bg-slate-900 px-4 py-2 text-white dark:bg-slate-700">
             Create Campaign
           </button>
         </form>
       ) : null}
 
-      {message ? <p className="text-sm text-emerald-600">{message}</p> : null}
+      {message ? <p className="text-sm text-emerald-600 dark:text-emerald-400">{message}</p> : null}
 
       <div className="grid gap-4 md:grid-cols-2">
         {campaigns.map((campaign) => (

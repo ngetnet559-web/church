@@ -62,23 +62,23 @@ function BudgetsPage() {
             { label: "Remaining", value: summary.totalRemaining },
             { label: "Warnings", value: summary.warningCount },
           ].map((item) => (
-            <div key={item.label} className="rounded-xl border bg-white p-4 shadow-sm">
-              <p className="text-sm text-gray-500">{item.label}</p>
+            <div key={item.label} className="rounded-xl border bg-white p-4 shadow-sm transition-colors dark:border-slate-700 dark:bg-slate-900">
+              <p className="text-sm text-gray-500 dark:text-slate-400">{item.label}</p>
               <p className="mt-1 text-xl font-semibold">{item.value?.toLocaleString()} ETB</p>
             </div>
           ))}
         </div>
       ) : null}
 
-      <form onSubmit={handleSubmit} className="space-y-4 rounded-xl border bg-white p-4 shadow-sm">
+      <form onSubmit={handleSubmit} className="space-y-4 rounded-xl border bg-white p-4 shadow-sm transition-colors dark:border-slate-700 dark:bg-slate-900">
         <div className="grid gap-4 md:grid-cols-2">
-          <input className="rounded border px-3 py-2" placeholder="Budget title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required />
-          <input className="rounded border px-3 py-2" placeholder="Fiscal year" value={form.fiscalYear} onChange={(e) => setForm({ ...form, fiscalYear: e.target.value })} required />
-          <input className="rounded border px-3 py-2" placeholder="Category" value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} />
-          <input className="rounded border px-3 py-2" placeholder="Allocated amount" type="number" value={form.allocatedAmount} onChange={(e) => setForm({ ...form, allocatedAmount: e.target.value })} required />
+          <input className="rounded border px-3 py-2 dark:border-slate-700 dark:bg-slate-800 dark:text-white" placeholder="Budget title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required />
+          <input className="rounded border px-3 py-2 dark:border-slate-700 dark:bg-slate-800 dark:text-white" placeholder="Fiscal year" value={form.fiscalYear} onChange={(e) => setForm({ ...form, fiscalYear: e.target.value })} required />
+          <input className="rounded border px-3 py-2 dark:border-slate-700 dark:bg-slate-800 dark:text-white" placeholder="Category" value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} />
+          <input className="rounded border px-3 py-2 dark:border-slate-700 dark:bg-slate-800 dark:text-white" placeholder="Allocated amount" type="number" value={form.allocatedAmount} onChange={(e) => setForm({ ...form, allocatedAmount: e.target.value })} required />
         </div>
-        <button type="submit" className="rounded bg-slate-900 px-4 py-2 font-medium text-white">Save Budget</button>
-        {message ? <p className="text-sm text-emerald-600">{message}</p> : null}
+        <button type="submit" className="rounded bg-slate-900 px-4 py-2 font-medium text-white dark:bg-slate-700">Save Budget</button>
+        {message ? <p className="text-sm text-emerald-600 dark:text-emerald-400">{message}</p> : null}
       </form>
 
       <div className="grid gap-4 md:grid-cols-2">
@@ -87,8 +87,8 @@ function BudgetsPage() {
         ))}
       </div>
 
-      <div className="rounded-xl border bg-white p-4 shadow-sm">
-        <h2 className="mb-4 font-semibold">Budget Usage Overview</h2>
+      <div className="rounded-xl border bg-white p-4 shadow-sm transition-colors dark:border-slate-700 dark:bg-slate-900">
+        <h2 className="mb-4 font-semibold dark:text-white">Budget Usage Overview</h2>
         <BudgetProgress budgets={budgets} />
       </div>
     </div>

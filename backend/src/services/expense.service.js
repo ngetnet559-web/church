@@ -48,6 +48,9 @@ export const createExpense = async (user, data, reqMeta = {}) => {
     createdBy: user._id,
   });
 
+  import("../services/audit.service.js").then(m => m.logAudit({ user, action: "Create", module: "Expense", targetCollection: "Expense", targetId: expense._id, description: `Expense "${expense.title}" of ${expense.amount} created` })).catch(() => {});
+  import("../services/activity.service.js").then(m => m.logActivity({ user, activityType: "expense_created", module: "Expense", description: `Expense "${expense.title}" created`, targetId: expense._id, targetModel: "Expense" })).catch(() => {});
+
   await logAudit({
     user,
     action: AUDIT_ACTIONS.EXPENSE_CREATED,
@@ -106,6 +109,10 @@ export const approveExpense = async (user, expenseId, reqMeta = {}) => {
   expense.approvedBy = user._id;
   await expense.save();
   await syncBudgetFromExpense(expense.category, expense.amount);
+
+  import("../services/autoNotification.service.js").then(m => m.notifyExpenseApproved(expense)).catch(() => {});
+  import("../services/audit.service.js").then(m => m.logAudit({ user, action: "Approve", module: "Expense", targetCollection: "Expense", targetId: expense._id, description: `Expense "${expense.title}" approved` })).catch(() => {});
+  import("../services/activity.service.js").then(m => m.logActivity({ user, activityType: "expense_approved", module: "Expense", description: `Expense "${expense.title}" approved`, targetId: expense._id, targetModel: "Expense" })).catch(() => {});
 
   await logAudit({
     user,

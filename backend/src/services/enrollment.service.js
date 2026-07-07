@@ -26,6 +26,7 @@ const formatEnrollment = (enrollment) => ({
   enrolledAt: enrollment.enrolledAt,
   progress: enrollment.progress,
   completed: enrollment.completed,
+  completedAt: enrollment.completedAt,
   completedLessons: enrollment.completedLessons,
 });
 
@@ -63,6 +64,9 @@ export const enrollInCourse = async (user, courseId) => {
   });
 
   await enrollment.populate(populateCourse);
+  import("../services/autoNotification.service.js").then(m => m.notifyStudentEnrolled(enrollment)).catch(() => {});
+  import("../services/audit.service.js").then(m => m.logAudit({ user, action: "Enroll", module: "Enrollment", targetCollection: "Enrollment", targetId: enrollment._id, description: `Enrolled in course` })).catch(() => {});
+  import("../services/activity.service.js").then(m => m.logActivity({ user, activityType: "enrollment", module: "Enrollment", description: `${user.name} enrolled in a course`, targetId: enrollment._id, targetModel: "Enrollment" })).catch(() => {});
   return formatEnrollment(enrollment);
 };
 
@@ -164,12 +168,21 @@ export const updateProgress = async (
   }
 
   await calculateProgress(enrollment, courseId);
+  if (enrollment.completed && !enrollment.completedAt) {
+    enrollment.completedAt = new Date();
+  }
   await enrollment.save();
 
   if (enrollment.completed) {
     const { issueCertificateForEnrollment } =
       await import("./certificate.service.js");
-    await issueCertificateForEnrollment(enrollment);
+    const cert = await issueCertificateForEnrollment(enrollment);
+    if (cert) {
+      import("../services/autoNotification.service.js").then(m => m.notifyCertificateIssued(cert)).catch(() => {});
+    }
+    import("../services/autoNotification.service.js").then(m => m.notifyCourseCompleted(enrollment)).catch(() => {});
+    import("../services/audit.service.js").then(m => m.logAudit({ user, action: "Complete", module: "Enrollment", targetCollection: "Enrollment", targetId: enrollment._id, description: `Course completed` })).catch(() => {});
+    import("../services/activity.service.js").then(m => m.logActivity({ user, activityType: "course_completed", module: "Enrollment", description: `${user.name} completed a course`, targetId: enrollment._id, targetModel: "Enrollment" })).catch(() => {});
   }
 
   return formatEnrollment(enrollment);

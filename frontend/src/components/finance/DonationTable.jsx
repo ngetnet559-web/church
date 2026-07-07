@@ -1,12 +1,14 @@
+const dateFormatter = new Intl.DateTimeFormat();
+
 function DonationTable({ donations = [], onRefund, onApprove, showActions = false }) {
   if (!donations.length) {
-    return <p className="text-sm text-gray-500">No donations found.</p>;
+    return <p className="text-sm text-gray-500 dark:text-slate-400">No donations found.</p>;
   }
 
   return (
-    <div className="overflow-hidden rounded-xl border bg-white shadow-sm">
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
+    <div className="overflow-hidden rounded-xl border bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900">
+      <table className="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
+        <thead className="bg-gray-50 dark:bg-slate-800">
           <tr>
             <th className="px-4 py-3 text-left text-sm font-semibold">Donor</th>
             <th className="px-4 py-3 text-left text-sm font-semibold">Amount</th>
@@ -21,7 +23,7 @@ function DonationTable({ donations = [], onRefund, onApprove, showActions = fals
         </thead>
         <tbody>
           {donations.map((donation) => (
-            <tr key={donation.id} className="border-t hover:bg-gray-50">
+            <tr key={donation.id} className="border-t hover:bg-gray-50 dark:border-slate-700 dark:hover:bg-slate-800">
               <td className="px-4 py-3 text-sm">{donation.donorName}</td>
               <td className="px-4 py-3 text-sm">
                 {donation.amount} {donation.currency}
@@ -31,10 +33,10 @@ function DonationTable({ donations = [], onRefund, onApprove, showActions = fals
                 <span
                   className={`rounded-full px-2 py-0.5 text-xs ${
                     donation.paymentStatus === "Paid"
-                      ? "bg-emerald-100 text-emerald-800"
+                      ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
                       : donation.paymentStatus === "Pending"
-                        ? "bg-amber-100 text-amber-800"
-                        : "bg-gray-100 text-gray-700"
+                        ? "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300"
+                        : "bg-gray-100 text-gray-700 dark:bg-slate-800 dark:text-slate-300"
                   }`}
                 >
                   {donation.paymentStatus}
@@ -42,7 +44,7 @@ function DonationTable({ donations = [], onRefund, onApprove, showActions = fals
               </td>
               <td className="px-4 py-3 text-sm">{donation.paymentMethod}</td>
               <td className="px-4 py-3 text-sm">
-                {new Date(donation.donatedAt).toLocaleDateString()}
+                {dateFormatter.format(new Date(donation.donatedAt))}
               </td>
               {showActions ? (
                 <td className="px-4 py-3 text-sm">
@@ -51,7 +53,7 @@ function DonationTable({ donations = [], onRefund, onApprove, showActions = fals
                       <button
                         type="button"
                         onClick={() => onApprove(donation.id)}
-                        className="text-emerald-600 hover:underline"
+                        className="text-emerald-600 hover:underline dark:text-emerald-400"
                       >
                         Approve
                       </button>
@@ -60,7 +62,7 @@ function DonationTable({ donations = [], onRefund, onApprove, showActions = fals
                       <button
                         type="button"
                         onClick={() => onRefund(donation.id)}
-                        className="text-red-600 hover:underline"
+                        className="text-red-600 hover:underline dark:text-red-400"
                       >
                         Refund
                       </button>

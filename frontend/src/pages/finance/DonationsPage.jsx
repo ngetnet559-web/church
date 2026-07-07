@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import DonationTable from "../../components/finance/DonationTable.jsx";
 import { financeApi } from "../../services/finance.service.js";
@@ -20,28 +20,32 @@ function DonationsPage() {
   });
   const [message, setMessage] = useState("");
 
-  const load = async () => {
+  const load = useCallback(async (f) => {
     try {
+      setLoading(true);
       const params = new URLSearchParams(
-        Object.entries(filters).filter(([, v]) => v),
+        Object.entries(f).filter(([, v]) => v),
       );
       const response = await financeApi.listDonations(params.toString());
       setDonations(response.data?.donations || []);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
+  const debounceRef = useRef(null);
   useEffect(() => {
-    load();
-  }, [filters]);
+    clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => load(filters), 300);
+    return () => clearTimeout(debounceRef.current);
+  }, [filters, load]);
 
   const handleRefund = async (id) => {
     if (!window.confirm("Refund this donation?")) return;
     try {
       await financeApi.refundDonation(id);
       setMessage("Donation refunded");
-      load();
+      load(filters);
     } catch (err) {
       setMessage(err.message);
     }
@@ -51,7 +55,7 @@ function DonationsPage() {
     try {
       await financeApi.approveDonation(id);
       setMessage("Donation approved");
-      load();
+      load(filters);
     } catch (err) {
       setMessage(err.message);
     }
@@ -65,13 +69,13 @@ function DonationsPage() {
         <h1 className="text-2xl font-semibold">Donations</h1>
         <Link
           to="/donate"
-          className="rounded-lg bg-emerald-600 px-4 py-2 text-sm text-white"
+          className="rounded-lg bg-emerald-600 px-4 py-2 text-sm text-white dark:bg-emerald-500"
         >
           Public Donate Page
         </Link>
       </div>
 
-      <div className="grid gap-3 rounded-xl border bg-white p-4 md:grid-cols-4">
+      <div className="grid gap-3 rounded-xl border bg-white p-4 md:grid-cols-4 dark:border-slate-700 dark:bg-slate-900">
         <input
           className="rounded border px-3 py-2 text-sm"
           placeholder="Search donor..."
@@ -81,7 +85,7 @@ function DonationsPage() {
         {Object.entries(FILTERS).map(([key, options]) => (
           <select
             key={key}
-            className="rounded border px-3 py-2 text-sm"
+className="rounded border px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-white"
             value={filters[key]}
             onChange={(e) => setFilters({ ...filters, [key]: e.target.value })}
           >
@@ -94,7 +98,7 @@ function DonationsPage() {
         ))}
       </div>
 
-      {message ? <p className="text-sm text-emerald-600">{message}</p> : null}
+      {message ? <p className="text-sm text-emerald-600 dark:text-emerald-400">{message}</p> : null}
 
       <DonationTable
         donations={donations}

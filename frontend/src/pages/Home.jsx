@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom'
 
 function Home() {
   return (
-    <section className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
-      <h2 className="text-2xl font-bold text-slate-900">Welcome</h2>
-      <p className="mt-3 text-slate-600">
+    <section className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm transition-colors dark:border-slate-700 dark:bg-slate-900">
+      <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Welcome</h2>
+      <p className="mt-3 text-slate-600 dark:text-slate-300">
         Sunday School Management System — manage classes, students, attendance,
         and more in one place.
       </p>

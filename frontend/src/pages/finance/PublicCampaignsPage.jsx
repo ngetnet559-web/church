@@ -34,7 +34,7 @@ function PublicCampaignsPage() {
             <CampaignCard key={campaign.id} campaign={campaign} />
           ))
         ) : (
-          <p className="text-gray-500">No active campaigns at this time.</p>
+          <p className="text-gray-500 dark:text-slate-400">No active campaigns at this time.</p>
         )}
       </div>
     </div>

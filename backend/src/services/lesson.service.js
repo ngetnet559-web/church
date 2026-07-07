@@ -68,6 +68,9 @@ export const createLesson = async (user, courseId, data) => {
     order: data.order ?? (await getNextOrder(courseId)),
   });
 
+  import("../services/autoNotification.service.js").then(m => m.notifyLessonAdded(lesson, course)).catch(() => {});
+  import("../services/audit.service.js").then(m => m.logAudit({ user, action: "Create", module: "Lesson", targetCollection: "Lesson", targetId: lesson._id, description: `Lesson "${lesson.title}" created in course ${course.title}` })).catch(() => {});
+  import("../services/activity.service.js").then(m => m.logActivity({ user, activityType: "lesson_created", module: "Lesson", description: `${user.name} created lesson "${lesson.title}"`, targetId: lesson._id, targetModel: "Lesson" })).catch(() => {});
   return formatLesson(lesson);
 };
 
@@ -125,6 +128,8 @@ export const updateLesson = async (user, lessonId, data) => {
   if (data.order !== undefined) lesson.order = data.order;
 
   await lesson.save();
+  import("../services/audit.service.js").then(m => m.logAudit({ user, action: "Update", module: "Lesson", targetCollection: "Lesson", targetId: lesson._id, description: `Lesson "${lesson.title}" updated` })).catch(() => {});
+  import("../services/activity.service.js").then(m => m.logActivity({ user, activityType: "lesson_updated", module: "Lesson", description: `${user.name} updated lesson "${lesson.title}"`, targetId: lesson._id, targetModel: "Lesson" })).catch(() => {});
   return formatLesson(lesson);
 };
 
@@ -140,5 +145,7 @@ export const deleteLesson = async (user, lessonId) => {
   }
 
   await lesson.deleteOne();
+  import("../services/audit.service.js").then(m => m.logAudit({ user, action: "Delete", module: "Lesson", targetCollection: "Lesson", targetId: lessonId, description: `Lesson deleted from course` })).catch(() => {});
+  import("../services/activity.service.js").then(m => m.logActivity({ user, activityType: "lesson_deleted", module: "Lesson", description: `${user.name} deleted lesson`, targetId: lessonId, targetModel: "Lesson" })).catch(() => {});
   return { message: 'Lesson deleted successfully' };
 };

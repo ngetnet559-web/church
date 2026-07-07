@@ -44,22 +44,22 @@ function ReportsPage() {
       <h1 className="text-2xl font-semibold">Reports & Export</h1>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <div className="rounded-xl border bg-white p-4 shadow-sm">
-          <h2 className="text-lg font-semibold">Monthly Report</h2>
-          <p className="mt-2 text-sm text-gray-600">Income: {monthly?.income?.toLocaleString()} ETB</p>
-          <p className="text-sm text-gray-600">Expenses: {monthly?.expenses?.toLocaleString()} ETB</p>
-          <p className="text-sm font-medium text-emerald-700">Net: {monthly?.net?.toLocaleString()} ETB</p>
+        <div className="rounded-xl border bg-white p-4 shadow-sm transition-colors dark:border-slate-700 dark:bg-slate-900">
+          <h2 className="text-lg font-semibold dark:text-white">Monthly Report</h2>
+          <p className="mt-2 text-sm text-gray-600 dark:text-slate-300">Income: {monthly?.income?.toLocaleString()} ETB</p>
+          <p className="text-sm text-gray-600 dark:text-slate-300">Expenses: {monthly?.expenses?.toLocaleString()} ETB</p>
+          <p className="text-sm font-medium text-emerald-700 dark:text-emerald-300">Net: {monthly?.net?.toLocaleString()} ETB</p>
         </div>
-        <div className="rounded-xl border bg-white p-4 shadow-sm">
-          <h2 className="text-lg font-semibold">Yearly Report ({yearly?.year})</h2>
-          <p className="mt-2 text-sm text-gray-600">Income: {yearly?.income?.toLocaleString()} ETB</p>
-          <p className="text-sm text-gray-600">Expenses: {yearly?.expenses?.toLocaleString()} ETB</p>
-          <p className="text-sm font-medium text-emerald-700">Net: {yearly?.net?.toLocaleString()} ETB</p>
+        <div className="rounded-xl border bg-white p-4 shadow-sm transition-colors dark:border-slate-700 dark:bg-slate-900">
+          <h2 className="text-lg font-semibold dark:text-white">Yearly Report ({yearly?.year})</h2>
+          <p className="mt-2 text-sm text-gray-600 dark:text-slate-300">Income: {yearly?.income?.toLocaleString()} ETB</p>
+          <p className="text-sm text-gray-600 dark:text-slate-300">Expenses: {yearly?.expenses?.toLocaleString()} ETB</p>
+          <p className="text-sm font-medium text-emerald-700 dark:text-emerald-300">Net: {yearly?.net?.toLocaleString()} ETB</p>
         </div>
       </div>
 
-      <div className="rounded-xl border bg-white p-4 shadow-sm">
-        <h2 className="text-lg font-semibold">Top Donors</h2>
+      <div className="rounded-xl border bg-white p-4 shadow-sm transition-colors dark:border-slate-700 dark:bg-slate-900">
+        <h2 className="text-lg font-semibold dark:text-white">Top Donors</h2>
         <ul className="mt-3 space-y-2">
           {topDonors.map((donor) => (
             <li key={donor.email || donor.name} className="flex justify-between text-sm">
@@ -76,13 +76,13 @@ function ReportsPage() {
             key={format}
             type="button"
             onClick={() => handleExport("donations", format)}
-            className="rounded bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
+            className="rounded bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600"
           >
             Export Donations ({format.toUpperCase()})
           </button>
         ))}
       </div>
-      {exportMsg ? <p className="text-sm text-gray-600">{exportMsg}</p> : null}
+      {exportMsg ? <p className="text-sm text-gray-600 dark:text-slate-300">{exportMsg}</p> : null}
     </div>
   );
 }

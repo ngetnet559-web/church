@@ -29,12 +29,12 @@ function FinanceDashboardPage() {
   if (loading) {
     return (
       <div className="flex h-64 items-center justify-center">
-        <p className="text-gray-500">Loading finance dashboard...</p>
+        <p className="text-gray-500 dark:text-slate-400">Loading finance dashboard...</p>
       </div>
     );
   }
 
-  if (error) return <div className="text-red-600">{error}</div>;
+  if (error) return <div className="text-red-600 dark:text-red-400">{error}</div>;
 
   return (
     <div className="space-y-6">
@@ -43,13 +43,13 @@ function FinanceDashboardPage() {
         <div className="flex gap-2">
           <Link
             to="/dashboard/finance/donations"
-            className="rounded-lg bg-emerald-600 px-4 py-2 text-sm text-white hover:bg-emerald-700"
+            className="rounded-lg bg-emerald-600 px-4 py-2 text-sm text-white hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600"
           >
             Manage Donations
           </Link>
           <Link
             to="/dashboard/finance/reports"
-            className="rounded-lg border px-4 py-2 text-sm hover:bg-gray-50"
+            className="rounded-lg border px-4 py-2 text-sm hover:bg-gray-50 dark:border-slate-700 dark:hover:bg-slate-800"
           >
             View Reports
           </Link>
@@ -60,30 +60,30 @@ function FinanceDashboardPage() {
 
       <div className="grid gap-6 lg:grid-cols-2">
         <IncomeExpenseChart data={stats?.incomeVsExpense} />
-        <div className="rounded-xl border bg-white p-4 shadow-sm">
-          <h3 className="mb-4 font-semibold text-gray-900">Donation Trend</h3>
+        <div className="rounded-xl border bg-white p-4 shadow-sm transition-colors dark:border-slate-700 dark:bg-slate-900">
+          <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">Donation Trend</h3>
           <TrendChart data={stats?.donationTrend || []} valueKey="value" />
         </div>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-xl border bg-white p-4 shadow-sm">
-          <h3 className="mb-4 font-semibold text-gray-900">Expense Trend</h3>
+        <div className="rounded-xl border bg-white p-4 shadow-sm transition-colors dark:border-slate-700 dark:bg-slate-900">
+          <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">Expense Trend</h3>
           <TrendChart data={stats?.expenseTrend || []} valueKey="value" />
         </div>
-        <div className="rounded-xl border bg-white p-4 shadow-sm">
-          <h3 className="mb-4 font-semibold text-gray-900">Campaign Progress</h3>
+        <div className="rounded-xl border bg-white p-4 shadow-sm transition-colors dark:border-slate-700 dark:bg-slate-900">
+          <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">Campaign Progress</h3>
           <CampaignProgress campaigns={stats?.campaignProgressList || []} />
         </div>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-xl border bg-white p-4 shadow-sm">
-          <h3 className="mb-4 font-semibold text-gray-900">Recent Donations</h3>
+        <div className="rounded-xl border bg-white p-4 shadow-sm transition-colors dark:border-slate-700 dark:bg-slate-900">
+          <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">Recent Donations</h3>
           <RecentDonations donations={stats?.recentDonations || []} />
         </div>
-        <div className="rounded-xl border bg-white p-4 shadow-sm">
-          <h3 className="mb-4 font-semibold text-gray-900">Largest Donations</h3>
+        <div className="rounded-xl border bg-white p-4 shadow-sm transition-colors dark:border-slate-700 dark:bg-slate-900">
+          <h3 className="mb-4 font-semibold text-gray-900 dark:text-white">Largest Donations</h3>
           <RecentDonations donations={stats?.largestDonations || []} />
         </div>
       </div>

@@ -10,15 +10,15 @@ const router = Router();
 
 router.use(requireDatabase);
 router.use(authenticate);
-router.use(authorize(ROLES.SUPER_ADMIN, ROLES.ADMIN));
 
-router.post("/expenses", asyncHandler(expenseController.createExpense));
-router.get("/expenses", asyncHandler(expenseController.listExpenses));
-router.get("/expenses/report", asyncHandler(expenseController.getExpenseReport));
-router.get("/expenses/export", asyncHandler(expenseController.exportExpenseReport));
-router.get("/expenses/:id", asyncHandler(expenseController.getExpenseById));
+router.post("/expenses", authorize(ROLES.SUPER_ADMIN, ROLES.ADMIN), asyncHandler(expenseController.createExpense));
+router.get("/expenses", authorize(ROLES.SUPER_ADMIN, ROLES.ADMIN), asyncHandler(expenseController.listExpenses));
+router.get("/expenses/report", authorize(ROLES.SUPER_ADMIN, ROLES.ADMIN), asyncHandler(expenseController.getExpenseReport));
+router.get("/expenses/export", authorize(ROLES.SUPER_ADMIN, ROLES.ADMIN), asyncHandler(expenseController.exportExpenseReport));
+router.get("/expenses/:id", authorize(ROLES.SUPER_ADMIN, ROLES.ADMIN), asyncHandler(expenseController.getExpenseById));
 router.post(
   "/expenses/:id/approve",
+  authorize(ROLES.SUPER_ADMIN, ROLES.ADMIN),
   asyncHandler(expenseController.approveExpense),
 );
 router.delete(

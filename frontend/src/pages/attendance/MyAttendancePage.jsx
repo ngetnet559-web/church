@@ -104,10 +104,10 @@ export default function MyAttendancePage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 transition-colors">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">My Attendance</h1>
-        <p className="mt-1 text-slate-600">
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">My Attendance</h1>
+        <p className="mt-1 text-slate-600 dark:text-slate-300">
           Your attendance summary, calendar, and upcoming meetings.
         </p>
       </div>
@@ -125,9 +125,9 @@ export default function MyAttendancePage() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-slate-900">
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
               Calendar View
             </h2>
             <div className="flex gap-2">
@@ -145,7 +145,7 @@ export default function MyAttendancePage() {
               >
                 ←
               </button>
-              <span className="text-sm font-medium text-slate-700">
+              <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
                 {calendarMonth.toLocaleDateString("en-US", {
                   month: "long",
                   year: "numeric",
@@ -161,13 +161,13 @@ export default function MyAttendancePage() {
                     ),
                   )
                 }
-                className="rounded px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
+                className="rounded px-2 py-1 text-sm text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
               >
                 →
               </button>
             </div>
           </div>
-          <div className="mt-4 grid grid-cols-7 gap-1 text-center text-xs text-slate-500">
+          <div className="mt-4 grid grid-cols-7 gap-1 text-center text-xs text-slate-500 dark:text-slate-400">
             {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
               <div key={d} className="py-1 font-medium">
                 {d}
@@ -177,12 +177,12 @@ export default function MyAttendancePage() {
               <div
                 key={i}
                 className={`min-h-12 rounded-lg p-1 ${
-                  cell ? "border border-slate-100 bg-slate-50" : ""
+                  cell ? "border border-slate-100 bg-slate-50 dark:border-slate-700 dark:bg-slate-800" : ""
                 }`}
               >
                 {cell && (
                   <>
-                    <span className="text-slate-700">{cell.day}</span>
+                    <span className="text-slate-700 dark:text-slate-300">{cell.day}</span>
                     <div className="mt-1 flex justify-center gap-0.5">
                       {cell.records.map((r) => (
                         <span
@@ -197,7 +197,7 @@ export default function MyAttendancePage() {
               </div>
             ))}
           </div>
-          <div className="mt-3 flex flex-wrap gap-3 text-xs text-slate-500">
+          <div className="mt-3 flex flex-wrap gap-3 text-xs text-slate-500 dark:text-slate-400">
             {Object.entries(STATUS_COLORS).map(([status, color]) => (
               <span key={status} className="flex items-center gap-1">
                 <span className={`h-2 w-2 rounded-full ${color}`} />
@@ -207,12 +207,12 @@ export default function MyAttendancePage() {
           </div>
         </div>
 
-        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-slate-900">
+        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
             Upcoming Meetings
           </h2>
           {upcoming.length === 0 ? (
-            <p className="mt-4 text-sm text-slate-500">
+            <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">
               No upcoming sessions scheduled.
             </p>
           ) : (
@@ -220,25 +220,25 @@ export default function MyAttendancePage() {
               {upcoming.map((session) => (
                 <li
                   key={session.id}
-                  className="rounded-lg border border-slate-100 bg-slate-50 p-4"
+                  className="rounded-lg border border-slate-100 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="rounded-full bg-blue-50 px-2 py-0.5 text-xs font-semibold text-blue-700">
+                    <span className="rounded-full bg-blue-50 px-2 py-0.5 text-xs font-semibold text-blue-700 dark:bg-blue-950 dark:text-blue-400">
                       {session.status}
                     </span>
-                    <span className="text-xs text-slate-500">
+                    <span className="text-xs text-slate-500 dark:text-slate-400">
                       {session.programType}
                     </span>
                   </div>
-                  <p className="mt-1 font-medium text-slate-900">
+                  <p className="mt-1 font-medium text-slate-900 dark:text-white">
                     {session.title}
                   </p>
-                  <p className="text-sm text-slate-500">
+                    <p className="text-sm text-slate-500 dark:text-slate-400">
                     {new Date(session.date).toLocaleDateString()} ·{" "}
                     {session.startTime} - {session.endTime}
                   </p>
                   {session.location && (
-                    <p className="text-xs text-slate-500">{session.location}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">{session.location}</p>
                   )}
                 </li>
               ))}
@@ -248,8 +248,8 @@ export default function MyAttendancePage() {
       </div>
 
       {trendData.length > 0 && (
-        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-slate-900">
+        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
             Attendance Trend
           </h2>
           <div className="mt-4">
@@ -258,12 +258,12 @@ export default function MyAttendancePage() {
         </div>
       )}
 
-      <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 className="text-lg font-semibold text-slate-900">
+      <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+        <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
           Attendance History
         </h2>
         {attendance.history.length === 0 ? (
-          <p className="mt-4 text-sm text-slate-500">
+          <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">
             No attendance history yet.
           </p>
         ) : (
@@ -271,14 +271,14 @@ export default function MyAttendancePage() {
             {attendance.history.map((record) => (
               <div
                 key={record.id}
-                className="rounded-xl border border-slate-100 bg-slate-50 p-4"
+                className="rounded-xl border border-slate-100 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800"
               >
                 <div className="flex flex-col gap-2 sm:flex-row sm:justify-between sm:items-center">
                   <div>
-                    <p className="font-medium text-slate-900">
+                    <p className="font-medium text-slate-900 dark:text-white">
                       {record.sessionTitle}
                     </p>
-                    <p className="text-sm text-slate-500">
+                  <p className="text-sm text-slate-500 dark:text-slate-400">
                       {new Date(record.sessionDate).toLocaleDateString()}
                       {record.programType && ` · ${record.programType}`}
                     </p>
@@ -298,7 +298,7 @@ export default function MyAttendancePage() {
                   </span>
                 </div>
                 {record.notes && (
-                  <p className="mt-2 text-sm text-slate-500">
+                  <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
                     Notes: {record.notes}
                   </p>
                 )}
@@ -314,15 +314,15 @@ export default function MyAttendancePage() {
 function StatCard({ label, value, highlight }) {
   return (
     <div
-      className={`rounded-xl border p-6 shadow-sm ${
+      className={`rounded-xl border p-6 shadow-sm transition-colors ${
         highlight
-          ? "border-indigo-200 bg-indigo-50"
-          : "border-slate-200 bg-white"
+          ? "border-indigo-200 bg-indigo-50 dark:border-indigo-800 dark:bg-indigo-950"
+          : "border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-900"
       }`}
     >
-      <p className="text-sm font-medium text-slate-500">{label}</p>
+      <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{label}</p>
       <p
-        className={`mt-3 text-3xl font-bold ${highlight ? "text-indigo-700" : "text-slate-900"}`}
+        className={`mt-3 text-3xl font-bold ${highlight ? "text-indigo-700 dark:text-indigo-300" : "text-slate-900 dark:text-white"}`}
       >
         {value}
       </p>

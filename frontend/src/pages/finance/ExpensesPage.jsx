@@ -68,18 +68,18 @@ function ExpensesPage() {
 
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 rounded-xl border bg-white p-4 shadow-sm"
+        className="space-y-4 rounded-xl border bg-white p-4 shadow-sm transition-colors dark:border-slate-700 dark:bg-slate-900"
       >
         <div className="grid gap-4 md:grid-cols-2">
           <input
-            className="rounded border px-3 py-2"
+            className="rounded border px-3 py-2 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
             placeholder="Title"
             value={form.title}
             onChange={(e) => setForm({ ...form, title: e.target.value })}
             required
           />
           <input
-            className="rounded border px-3 py-2"
+            className="rounded border px-3 py-2 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
             placeholder="Amount"
             type="number"
             value={form.amount}
@@ -87,7 +87,7 @@ function ExpensesPage() {
             required
           />
           <select
-            className="rounded border px-3 py-2"
+            className="rounded border px-3 py-2 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
             value={form.category}
             onChange={(e) => setForm({ ...form, category: e.target.value })}
           >
@@ -96,7 +96,7 @@ function ExpensesPage() {
             ))}
           </select>
           <select
-            className="rounded border px-3 py-2"
+            className="rounded border px-3 py-2 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
             value={form.paymentMethod}
             onChange={(e) => setForm({ ...form, paymentMethod: e.target.value })}
           >
@@ -105,28 +105,28 @@ function ExpensesPage() {
             ))}
           </select>
           <input
-            className="rounded border px-3 py-2"
+            className="rounded border px-3 py-2 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
             type="date"
             value={form.expenseDate}
             onChange={(e) => setForm({ ...form, expenseDate: e.target.value })}
           />
           <input
-            className="rounded border px-3 py-2"
+            className="rounded border px-3 py-2 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
             placeholder="Receipt image URL"
             value={form.receiptImage}
             onChange={(e) => setForm({ ...form, receiptImage: e.target.value })}
           />
         </div>
         <textarea
-          className="w-full rounded border px-3 py-2"
+          className="w-full rounded border px-3 py-2 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
           placeholder="Description"
           value={form.description}
           onChange={(e) => setForm({ ...form, description: e.target.value })}
         />
-        <button type="submit" className="rounded bg-slate-900 px-4 py-2 font-medium text-white">
+        <button type="submit" className="rounded bg-slate-900 px-4 py-2 font-medium text-white dark:bg-slate-700">
           Save Expense
         </button>
-        {message ? <p className="text-sm text-emerald-600">{message}</p> : null}
+        {message ? <p className="text-sm text-emerald-600 dark:text-emerald-400">{message}</p> : null}
       </form>
 
       <ExpenseTable expenses={expenses} onApprove={approveExpense} />

@@ -3,23 +3,23 @@ import { Link } from "react-router-dom";
 function DonationFailurePage() {
   return (
     <div className="mx-auto max-w-3xl p-8 text-center">
-      <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100 text-3xl text-red-600">
+      <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100 text-3xl text-red-600 dark:bg-red-950 dark:text-red-400">
         ✕
       </div>
-      <h1 className="text-3xl font-semibold text-red-700">
+      <h1 className="text-3xl font-semibold text-red-700 dark:text-red-400">
         Donation was not completed
       </h1>
-      <p className="mt-4 text-gray-600">
+      <p className="mt-4 text-gray-600 dark:text-slate-300">
         Please try again or contact the church office for assistance.
       </p>
       <div className="mt-6 flex justify-center gap-4">
         <Link
           to="/donate"
-          className="rounded-lg bg-emerald-600 px-6 py-2 text-white hover:bg-emerald-700"
+          className="rounded-lg bg-emerald-600 px-6 py-2 text-white hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600"
         >
           Try again
         </Link>
-        <Link to="/" className="text-emerald-600 hover:underline">
+        <Link to="/" className="text-emerald-600 hover:underline dark:text-emerald-400">
           Return home
         </Link>
       </div>

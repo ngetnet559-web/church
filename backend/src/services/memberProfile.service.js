@@ -277,6 +277,10 @@ export const createProfile = async (currentUser, data) => {
   Object.assign(profile, stats);
   await profile.save();
 
+  import("../services/autoNotification.service.js").then(m => m.notifyProfileUpdated(profile)).catch(() => {});
+  import("../services/audit.service.js").then(m => m.logAudit({ user: currentUser, action: "Create", module: "Profile", targetCollection: "MemberProfile", targetId: profile._id, description: `Profile created for ${getFullName(profile)}` })).catch(() => {});
+  import("../services/activity.service.js").then(m => m.logActivity({ user: currentUser, activityType: "profile_created", module: "Profile", description: `Profile created for ${getFullName(profile)}`, targetId: profile._id, targetModel: "MemberProfile" })).catch(() => {});
+
   return formatProfile(profile, stats);
 };
 

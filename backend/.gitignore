@@ -1,3 +1,14 @@
 node_modules/
 .env
 *.log
+.env.*
+!.env.example
+build/
+npm-debug.log*
+uploads/
+certificates/
+temp/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -94,25 +94,25 @@ export default function AttendanceSessionsPage() {
 
   const statusColor = (status) => {
     const colors = {
-      Upcoming: 'bg-blue-50 text-blue-700',
-      Ongoing: 'bg-green-50 text-green-700',
-      Completed: 'bg-slate-100 text-slate-700',
-      Cancelled: 'bg-red-50 text-red-700',
+      Upcoming: 'bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-400',
+      Ongoing: 'bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-400',
+      Completed: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300',
+      Cancelled: 'bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-400',
     };
-    return colors[status] || 'bg-slate-100 text-slate-700';
+    return colors[status] || 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300';
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 transition-colors">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Attendance Sessions</h1>
-          <p className="mt-1 text-slate-600">Create and manage attendance sessions.</p>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Attendance Sessions</h1>
+          <p className="mt-1 text-slate-600 dark:text-slate-300">Create and manage attendance sessions.</p>
         </div>
         <div className="flex gap-2">
           <Link
             to="/dashboard/attendance"
-            className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+            className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-800"
           >
             Dashboard
           </Link>
@@ -127,24 +127,24 @@ export default function AttendanceSessionsPage() {
       </div>
 
       {error && (
-        <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>
+        <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700 dark:bg-red-950 dark:text-red-400">{error}</div>
       )}
 
       {showForm && (
-        <form onSubmit={handleCreate} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm space-y-4">
-          <h2 className="text-lg font-semibold text-slate-900">Create Session</h2>
+        <form onSubmit={handleCreate} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm space-y-4 dark:border-slate-700 dark:bg-slate-900">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Create Session</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <input
               required
               placeholder="Session title"
               value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
-              className="rounded-lg border border-slate-300 px-3 py-2 text-sm"
+              className="rounded-lg border border-slate-300 px-3 py-2 text-sm dark:border-slate-600"
             />
             <select
               value={form.programType}
               onChange={(e) => setForm({ ...form, programType: e.target.value })}
-              className="rounded-lg border border-slate-300 px-3 py-2 text-sm"
+              className="rounded-lg border border-slate-300 px-3 py-2 text-sm dark:border-slate-600"
             >
               {PROGRAM_TYPES.map((t) => (
                 <option key={t} value={t}>{t}</option>
@@ -202,7 +202,7 @@ export default function AttendanceSessionsPage() {
             rows={2}
             value={form.description}
             onChange={(e) => setForm({ ...form, description: e.target.value })}
-            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm dark:border-slate-600"
           />
           <button
             type="submit"
@@ -220,7 +220,7 @@ export default function AttendanceSessionsPage() {
             type="button"
             onClick={() => setFilter(s)}
             className={`rounded-full px-3 py-1 text-sm font-medium ${
-              filter === s ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+              filter === s ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
             }`}
           >
             {s === 'all' ? 'All' : s}
@@ -233,7 +233,7 @@ export default function AttendanceSessionsPage() {
           <div className="h-10 w-10 animate-spin rounded-full border-4 border-indigo-200 border-t-indigo-600" />
         </div>
       ) : filtered.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-slate-300 bg-white p-12 text-center text-slate-600">
+        <div className="rounded-xl border border-dashed border-slate-300 bg-white p-12 text-center text-slate-600 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-300">
           No sessions found. Create your first attendance session.
         </div>
       ) : (
@@ -241,22 +241,22 @@ export default function AttendanceSessionsPage() {
           {filtered.map((session) => (
             <div
               key={session.id}
-              className="flex flex-col gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between"
+              className="flex flex-col gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between dark:border-slate-700 dark:bg-slate-900"
             >
               <div>
                 <div className="flex items-center gap-2">
                   <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${statusColor(session.status)}`}>
                     {session.status}
                   </span>
-                  <span className="text-xs text-slate-500">{session.programType}</span>
+                  <span className="text-xs text-slate-500 dark:text-slate-400">{session.programType}</span>
                 </div>
-                <p className="mt-1 font-semibold text-slate-900">{session.title}</p>
-                <p className="text-sm text-slate-500">
+                <p className="mt-1 font-semibold text-slate-900 dark:text-white">{session.title}</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400">
                   {new Date(session.date).toLocaleDateString()} · {session.startTime} - {session.endTime}
                   {session.location && ` · ${session.location}`}
                 </p>
                 {session.course && (
-                  <p className="text-xs text-indigo-600">Course: {session.course.title}</p>
+                  <p className="text-xs text-indigo-600 dark:text-indigo-400">Course: {session.course.title}</p>
                 )}
               </div>
               <div className="flex flex-wrap gap-2">
@@ -278,7 +278,7 @@ export default function AttendanceSessionsPage() {
                 <button
                   type="button"
                   onClick={() => handleDelete(session.id)}
-                  className="rounded-lg border border-red-200 px-3 py-1.5 text-sm font-semibold text-red-600 hover:bg-red-50"
+                  className="rounded-lg border border-red-200 px-3 py-1.5 text-sm font-semibold text-red-600 hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-950"
                 >
                   Delete
                 </button>
